@@ -1,6 +1,8 @@
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
 vim.cmd [[ set nofoldenable ]]
 vim.cmd [[set clipboard=unnamedplus]]

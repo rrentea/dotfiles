@@ -23,17 +23,20 @@ nmap("<leader>,", ":w<cr>")
 
 local opts = { noremap = true }
 
-keymap('n', '<C-j>', '<C-w>j', opts)
-keymap('n', '<C-h>', '<C-w>h', opts)
-keymap('n', '<C-k>', '<C-w>k', opts)
-keymap('n', '<c-l>', '<c-w>l', opts)
-
+-- Window movement and resizing (Rizesing is not quite as I want it to be)
+nmap('<a-j>', '<C-w>j')
+nmap('<a-h>', '<C-w>h')
+nmap('<a-k>', '<C-w>k')
+nmap('<a-l>', '<c-w>l')
+nmap('<a-s-h>', '<c-w><')
+nmap('<a-s-j>', '<c-w>+')
+nmap('<a-s-k>', '<c-w>-')
+nmap('<a-s-l>', '<c-w>>')
 
 -- Nerd Tree
-
-keymap('n', '<C-n>', ':NERDTree<CR>', {})
-keymap('n', '<C-t>', ':NERDTreeToggle<CR>', {})
-keymap('n', '<C-f>', ':NERDTreeFind<CR>', {})
+keymap('n', '<leader>n', ':NERDTree<CR>', {})
+keymap('n', '<leader>t', ':NERDTreeToggle<CR>', {})
+keymap('n', '<leader>f', ':NERDTreeFind<CR>', {})
 
 local function nkeymap(key, map)
     keymap('n', key, map, opts)
@@ -47,7 +50,7 @@ nkeymap('gw', ':lua vim.lsp.buf.document_symbol()<cr>')
 nkeymap('gw', ':lua vim.lsp.buf.workspace_symbol()<cr>')
 nkeymap('gr', ':lua vim.lsp.buf.references()<cr>')
 nkeymap('gt', ':lua vim.lsp.buf.type_definition()<cr>')
-nkeymap('K', ':lua vim.lsp.buf.hover()<cr>')
+nkeymap('gk', ':lua vim.lsp.buf.hover()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
 
@@ -71,8 +74,17 @@ vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
   {silent = true, noremap = true}
 )
 
+-- Window management
+nmap("<a-|>", ":vs<cr>") -- I actually want to map this to ctrl+shift+|, but I can't do that for some reason
+nmap("<a-_>", ":sp<cr>")
+
+nmap("<leader>q", ":q<cr>")
+
+-- Running current python file
+nmap("<F5>", ":sp <CR> :term python % <CR>")
+
+-- Miscellanious
 imap("jk", "<Esc>")
 nmap("<leader>,", ":w<cr>")
-nmap("<leader>/", "gcc")
-vmap("<leader>/", "gc")
-nmap("<leader><space>", [[:%s/\s\+$<cr>]])
+nmap("<leader>/", "gcc") -- Comments the current line
+vmap("<leader>/", "gc")  -- Comments the selected lines
