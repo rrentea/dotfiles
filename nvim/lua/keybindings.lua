@@ -14,6 +14,7 @@ local omap = utils.omap
 local nnoremap = utils.nnoremap
 local inoremap = utils.inoremap
 local vnoremap = utils.vnoremap
+g.mapleader = ","
 
 local keymap = vim.api.nvim_set_keymap
 keymap('n', '<C-s>', ':w<CR>', {})
@@ -47,7 +48,6 @@ nkeymap('gw', ':lua vim.lsp.buf.workspace_symbol()<cr>')
 nkeymap('gr', ':lua vim.lsp.buf.references()<cr>')
 nkeymap('gt', ':lua vim.lsp.buf.type_definition()<cr>')
 nkeymap('K', ':lua vim.lsp.buf.hover()<cr>')
-nkeymap('<c-k>', ':lua vim.lsp.buf.signature_help()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
 
@@ -71,6 +71,8 @@ vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
   {silent = true, noremap = true}
 )
 
-g.mapleader = ","
 imap("jk", "<Esc>")
+nmap("<leader>,", ":w<cr>")
+nmap("<leader>/", "gcc")
+vmap("<leader>/", "gc")
 nmap("<leader><space>", [[:%s/\s\+$<cr>]])

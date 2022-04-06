@@ -190,7 +190,6 @@ vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 -- Disable text diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
-        -- Disable text diagnostics
         virtual_text = false
     }
 )
