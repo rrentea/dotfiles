@@ -18,6 +18,15 @@ require('packer').startup(function()
     use 'williamboman/nvim-lsp-installer'
     use 'preservim/nerdtree'
     use 'kien/ctrlp.vim'
+    use 'ryanoasis/vim-devicons'
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
+    use 'nvim-telescope/telescope-fzy-native.nvim'
+    use { 'CRAG666/code_runner.nvim',
+        requires = 'nvim-lua/plenary.nvim'
+    }
 
     -- Autocomplete
     use 'hrsh7th/cmp-nvim-lsp'
@@ -49,4 +58,17 @@ require('packer').startup(function()
 
     -- Linter
     use 'dense-analysis/ale'
+
+    -- Debugger
+    use {
+        "puremourning/vimspector",
+        -- cmd = { "VimspectorInstall", "VimspectorUpdate" },
+        -- fn = { "vimspector#Launch()", "vimspector#ToggleBreakpoint", "vimspector#Continue" },
+        config = function()
+            require("vimspector").setup()
+        end,
+    }
+
+    -- Lark syntax
+    use 'lark-parser/vim-lark-syntax'
 end)

@@ -144,8 +144,6 @@ cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex 
 -- add a lisp filetype (wrap my-function), FYI: Hardcoded = { "clojure", "clojurescript", "fennel", "janet" }
 cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
 
-
-
 -- Appearance
 ---------------------------------------------------------
 vim.o.termguicolors = true
@@ -190,9 +188,26 @@ vim.opt.swapfile = false -- don't create swap files for new buffers
 vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 
 -- Disable text diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false
-    }
-)
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+--     vim.lsp.diagnostic.on_publish_diagnostics, {
+--         virtual_text = false
+--     }
+-- )
+vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
 
+-- Vimspector
+vim.g.vimspector_enable_mappings = 'HUMAN'
+
+require('code_runner').setup {
+	term = {
+		position = "below",
+		size = 15,
+		-- mode = "startinsert"
+	},
+	filetype = {
+		java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
+		python = "python",
+		typescript = "deno run",
+		rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt"
+	},
+}

@@ -54,34 +54,17 @@ nkeymap('gk', ':lua vim.lsp.buf.hover()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
 
--- Trouble linting config
-vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
-  {silent = true, noremap = true}
-)
-
 -- Window management
-nmap("<a-|>", ":vs<cr>") -- I actually want to map this to ctrl+shift+|, but I can't do that for some reason
+nmap("<a-|>", ":vs<cr>")
 nmap("<a-_>", ":sp<cr>")
 
 nmap("<leader>q", ":q<cr>")
 
--- Running current python file
-nmap("<F5>", ":sp <CR> :term python % <CR>")
+-- Running current file
+nmap("<F1>", "<cmd>RunCode<cr>")
+
+-- Debug config
+nmap("<leader>dc", "<cmd>lua require('config.vimspector').generate_debug_profile()<cr>")
 
 -- Miscellanious
 imap("jk", "<Esc>")
