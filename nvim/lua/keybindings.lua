@@ -54,6 +54,9 @@ nkeymap('gk', ':lua vim.lsp.buf.hover()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
 
+-- LazyGit
+nmap("<leader>g", ":LazyGit<cr>")
+
 -- Window management
 nmap("<a-|>", ":vs<cr>")
 nmap("<a-_>", ":sp<cr>")

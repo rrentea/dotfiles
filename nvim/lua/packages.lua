@@ -19,10 +19,17 @@ require('packer').startup(function()
     use 'preservim/nerdtree'
     use 'kien/ctrlp.vim'
     use 'ryanoasis/vim-devicons'
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = { {'nvim-lua/plenary.nvim'} }
-    }
+    -- use {
+    --     'nvim-telescope/telescope.nvim',
+    --     requires = { {'nvim-lua/plenary.nvim'} }
+    -- }
+    use({
+        "nvim-telescope/telescope.nvim",
+        requires = { { "nvim-lua/plenary.nvim" }, { "kdheepak/lazygit.nvim" } },
+        config = function()
+            require("telescope").load_extension("lazygit")
+        end,
+    })
     use 'nvim-telescope/telescope-fzy-native.nvim'
     use { 'CRAG666/code_runner.nvim',
         requires = 'nvim-lua/plenary.nvim'
@@ -52,9 +59,6 @@ require('packer').startup(function()
             require('gitsigns').setup()
         end
     }
-
-    -- Git
-    use 'tpope/vim-fugitive'
 
     -- Linter
     use 'dense-analysis/ale'
