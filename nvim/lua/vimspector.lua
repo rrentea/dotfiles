@@ -68,6 +68,7 @@ function M.toggle_human_mode()
 end
 
 function M.setup()
+  vim.g.vimspector_enable_mappings = "VISUAL_STUDIO"
   vim.cmd [[packadd! vimspector]] -- Load vimspector
   debuggers() -- Configure debuggers
 end

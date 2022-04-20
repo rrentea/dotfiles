@@ -21,6 +21,9 @@ keymap('n', '<C-s>', ':w<CR>', {})
 keymap('i', '<C-s>', '<ESC>:w<CR>a', {})
 nmap("<leader>,", ":w<cr>")
 
+nmap("<enter>", "o<Esc>")
+nmap("<S-enter>", "O<Esc>")
+
 local opts = { noremap = true }
 
 -- Window movement and resizing (Rizesing is not quite as I want it to be)
@@ -32,6 +35,10 @@ nmap('<a-s-h>', '<c-w><')
 nmap('<a-s-j>', '<c-w>+')
 nmap('<a-s-k>', '<c-w>-')
 nmap('<a-s-l>', '<c-w>>')
+nmap('<leader>h', ':WinShift left<cr>')
+nmap('<leader>j', ':WinShift down<cr>')
+nmap('<leader>k', ':WinShift up<cr>')
+nmap('<leader>l', ':WinShift right<cr>')
 
 -- Nerd Tree
 keymap('n', '<leader>n', ':NERDTree<CR>', {})
@@ -67,10 +74,25 @@ nmap("<leader>q", ":q<cr>")
 nmap("<F1>", "<cmd>RunCode<cr>")
 
 -- Debug config
-nmap("<leader>dc", "<cmd>lua require('config.vimspector').generate_debug_profile()<cr>")
+nmap("<leader>dc", "<cmd>lua require('vimspector').generate_debug_profile()<cr>")
+-- nmap("<F5>", "<Plug>VimspectorContinue<cr>")
+-- nmap("<F3>", "<Plug>VimspectorStop<cr>")
+-- nmap("<F4>", "<Plug>VimspectorRestart<cr>")
+-- nmap("<F6>", "<Plug>VimspectorPause<cr>")
+nmap("<leader>db", "<Plug>VimspectorToggleBreakPoint<cr>")
+-- nmap("<leader><F9>", "<Plug>VimspectorToggleConditionalBreakpoint<cr>")
+-- nmap("<F8>", "<Plug>VimspectorAddFunctionBreakpoint<cr>")
+-- nmap("<leader><F8>", "<Plug>VimspectorRunToCursor<cr>")
+-- nmap("<F10>", "<Plug>VimspectorStepOver<cr>")
+-- nmap("<F11>", "<Plug>VimspectorStepInto<cr>")
+-- nmap("<F12>", "<Plug>VimspectorStepOut<cr>")
 
 -- Miscellanious
 imap("jk", "<Esc>")
 nmap("<leader>,", ":w<cr>")
 nmap("<leader>/", "gcc") -- Comments the current line
 vmap("<leader>/", "gc")  -- Comments the selected lines
+
+nmap("''", "ciw'<Esc>p") -- Quotes the current word with single quotes
+nmap('""', 'ciw"<Esc>p') -- Quotes the current word with double quotes
+

@@ -3,57 +3,28 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.autoread = true
 
-vim.cmd [[ set nofoldenable ]]
+vim.cmd [[set nofoldenable]]
 vim.cmd [[set clipboard=unnamedplus]]
 
 -- Showing line numbers
 
 vim.cmd [[ set number ]]
 
--- Setting up indendation
-
-vim.cmd [[au BufNewFile, BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix ]]
-
-vim.cmd [[au BufNewFile, BufRead *.js, *.html, *.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2]]
-
 -- Feline
 
+vim.cmd [[let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"]]
+vim.cmd [[let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"]]
 vim.cmd [[ set termguicolors ]]
 
 require("feline").setup({
-	components = require('catppuccin.core.integrations.feline'),
+	-- components = require('catppuccin.core.integrations.feline'),
 })
-
- -- Linting
-
-vim.cmd [[ highlight BadWhitespace ctermbg=red guibg=darkred ]]
-vim.cmd [[ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/ ]]
 
 -- Color Scheme
 
 vim.cmd [[ colorscheme catppuccin ]]
-
-local configs = require'nvim-treesitter.configs'
-configs.setup {
-    ensure_installed = "maintained",
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    }
-}
 
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
@@ -72,77 +43,14 @@ lsp_installer.on_server_ready(function(server)
     server:setup(opts)
 end)
 
--- Setup nvim-cmp.
-
-local cmp = require'cmp'
-
-cmp.setup({
-    mapping = {
-        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        ['<C-e>'] = cmp.mapping({
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        }),
-        ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    },
-    confimation = { completeopt = 'menu,menuone,noinsert' },
-    sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-        -- { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
-    }, {
-        { name = 'buffer' },
-        })
-})
-
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
-        { name = 'buffer' },
-        })
-})
-
--- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
-    sources = {
-    { name = 'buffer' }
-    }
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-    { name = 'path' }
-    }, {
-        { name = 'cmdline' }
-        })
-})
-
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig')['sumneko_lua'].setup {
-    capabilities = capabilities
-}
-require('lspconfig')['pyright'].setup {
-    capabilities = capabilities
-}
-
 -- Setup autopairs
 -- If you want insert `(` after select function or method item
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+-- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+-- cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
 
 -- add a lisp filetype (wrap my-function), FYI: Hardcoded = { "clojure", "clojurescript", "fennel", "janet" }
-cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
+-- cmp_autopairs.lisp[#cmp_autopairs.lisp+1] = "racket"
 
 -- Appearance
 ---------------------------------------------------------
@@ -196,8 +104,9 @@ vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
 
 -- Vimspector
-vim.g.vimspector_enable_mappings = 'HUMAN'
+-- vim.g.vimspector_enable_mappings = 'VISUAL_STUDIO'
 
+-- Code Runner
 require('code_runner').setup {
 	term = {
 		position = "below",
@@ -211,3 +120,157 @@ require('code_runner').setup {
 		rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt"
 	},
 }
+
+vim.g.NERDTreeShowHidden = 1 -- Showing hidden files in NERD Tree by default
+
+
+--------------------------------------  Auto-completion  --------------------------------------
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+local cmp = require('cmp')
+cmp.setup {
+    snippet = {
+        expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end
+    },
+    -- ... Your other configuration ...
+    mapping = {
+        ["<Tab>"] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                else
+                    cmp.complete()
+                end
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                    vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+                else
+                    fallback()
+                end
+            end,
+            s = function(fallback)
+                if vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+                    vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+                else
+                    fallback()
+                end
+            end
+        }),
+        ["<S-Tab>"] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+                else
+                    cmp.complete()
+                end
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+                elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+                    return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+                else
+                    fallback()
+                end
+            end,
+            s = function(fallback)
+                if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+                    return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
+                else
+                    fallback()
+                end
+            end
+        }),
+        ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
+        ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), {'i'}),
+        ['<C-n>'] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
+                end
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    fallback()
+                end
+            end
+        }),
+        ['<C-p>'] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
+                end
+            end,
+            i = function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    fallback()
+                end
+            end
+        }),
+        ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
+        ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
+        ['<C-e>'] = cmp.mapping({ i = cmp.mapping.close(), c = cmp.mapping.close() }),
+        ['<CR>'] = cmp.mapping({
+            i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+            c = function(fallback)
+                if cmp.visible() then
+                    cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                else
+                    fallback()
+                end
+            end
+        }),
+        -- ... Your other configuration ...
+    },
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        -- { name = 'vsnip' }, -- For vsnip users.
+        -- { name = 'luasnip' }, -- For luasnip users.
+        { name = 'ultisnips' }, -- For ultisnips users.
+        -- { name = 'snippy' }, -- For snippy users.
+    }, {
+        { name = 'buffer' },
+    })
+   -- ... Your other configuration ...
+}
+
+-- Use buffer source for `/`.
+cmp.setup.cmdline('/', {
+    completion = { autocomplete = false },
+    sources = {
+        -- { name = 'buffer' }
+        { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
+    }
+})
+
+-- Use cmdline & path source for ':'.
+cmp.setup.cmdline(':', {
+    completion = { autocomplete = false },
+    sources = cmp.config.sources({
+        { name = 'path' }
+        }, {
+        { name = 'cmdline' }
+    })
+})
+
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig')['pyright'].setup {
+    capabilities = capabilities
+}
+-----------------------------------------------------------------------------------------------
