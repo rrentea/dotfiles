@@ -1,24 +1,31 @@
-vim.cmd [[packadd! vimspector]]
-
 local M = {}
 
 local vimspector_python = [[
 {
-  "configurations": {
-    "<name>: Launch": {
-      "adapter": "debugpy",
-      "configuration": {
-        "name": "Python: Launch",
-        "type": "python",
-        "request": "launch",
-        "python": "%s",
-        "stopOnEntry": true,
-        "console": "externalTerminal",
-        "debugOptions": [],
-        "program": "${file}"
-      }
+    "configurations": {
+        "<name>: Launch": {
+            "adapter": "debugpy",
+            "configuration": {
+                "name": "Python: Launch",
+                "type": "python",
+                "request": "launch",
+                "python": "%s",
+                "stopOnEntry": false,
+                "console": "externalTerminal",
+                "debugOptions": [],
+                "program": "${file}",
+                "args": []
+            },
+            "breakpoints": {
+                "exception": {
+                    "caught": "N",
+                    "uncaught": "Y",
+                    "raised": "N",
+                    "userUnhandled": "Y"
+                }
+            }
+        }
     }
-  }
 }
 ]]
 
@@ -46,6 +53,10 @@ function M.generate_debug_profile()
     end
     vim.api.nvim_buf_set_lines(bufNew, 0, -1, false, lines)
   end
+end
+
+function M.setup()
+    vim.cmd [[packadd! vimspector]]
 end
 
 return M

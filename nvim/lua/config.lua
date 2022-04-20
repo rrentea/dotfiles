@@ -12,6 +12,8 @@ vim.cmd [[set clipboard=unnamedplus]]
 
 vim.cmd [[ set number ]]
 
+require('vimspector').setup()
+
 -- Feline
 
 vim.cmd [[let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"]]

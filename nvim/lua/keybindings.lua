@@ -62,16 +62,16 @@ nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
 
 -- Vimspector
-nmap('<leader>d', '<Plug>VimspectorLaunch')
+nmap('<leader>dc', '<cmd>lua require("vimspector").generate_debug_profile()<cr>')
+nmap('<leader>dl', '<Plug>VimspectorLaunch')
+nmap('<leader>ds', '<cmd>VimspectorReset<cr>')
+nmap('<leader>dr', '<Plug>VimspectorRestart')
 nmap('<F5>', '<Plug>VimspectorContinue')
-nmap('<S-F5>', '<Plug>VimspectorStop')
-nmap('<C-S-F5>', '<Plug>VimspectorRestart')
-nmap('<F6>', '<Plug>VimspectorPause')
+-- nmap('<F6>', '<Plug>VimspectorPause')
 nmap('<F9>', '<Plug>VimspectorToggleBreakpoint')
-nmap('<S-F9>', '<Plug>VimspectorAddFunctionBreakpoint')
 nmap('<F10>', '<Plug>VimspectorStepOver')
 nmap('<F11>', '<Plug>VimspectorStepInto')
-nmap('<S-F11>', '<Plug>VimspectorStepOut')
+-- nmap('<S-F11>', '<Plug>VimspectorStepOut')
 
 -- LazyGit
 nmap("<leader>g", ":LazyGit<cr>")
