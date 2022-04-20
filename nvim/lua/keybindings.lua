@@ -61,6 +61,18 @@ nkeymap('gk', ':lua vim.lsp.buf.hover()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
 
+-- Vimspector
+nmap('<leader>d', '<Plug>VimspectorLaunch')
+nmap('<F5>', '<Plug>VimspectorContinue')
+nmap('<S-F5>', '<Plug>VimspectorStop')
+nmap('<C-S-F5>', '<Plug>VimspectorRestart')
+nmap('<F6>', '<Plug>VimspectorPause')
+nmap('<F9>', '<Plug>VimspectorToggleBreakpoint')
+nmap('<S-F9>', '<Plug>VimspectorAddFunctionBreakpoint')
+nmap('<F10>', '<Plug>VimspectorStepOver')
+nmap('<F11>', '<Plug>VimspectorStepInto')
+nmap('<S-F11>', '<Plug>VimspectorStepOut')
+
 -- LazyGit
 nmap("<leader>g", ":LazyGit<cr>")
 
@@ -72,20 +84,6 @@ nmap("<leader>q", ":q<cr>")
 
 -- Running current file
 nmap("<F1>", "<cmd>RunCode<cr>")
-
--- Debug config
-nmap("<leader>dc", "<cmd>lua require('vimspector').generate_debug_profile()<cr>")
--- nmap("<F5>", "<Plug>VimspectorContinue<cr>")
--- nmap("<F3>", "<Plug>VimspectorStop<cr>")
--- nmap("<F4>", "<Plug>VimspectorRestart<cr>")
--- nmap("<F6>", "<Plug>VimspectorPause<cr>")
-nmap("<leader>db", "<Plug>VimspectorToggleBreakPoint<cr>")
--- nmap("<leader><F9>", "<Plug>VimspectorToggleConditionalBreakpoint<cr>")
--- nmap("<F8>", "<Plug>VimspectorAddFunctionBreakpoint<cr>")
--- nmap("<leader><F8>", "<Plug>VimspectorRunToCursor<cr>")
--- nmap("<F10>", "<Plug>VimspectorStepOver<cr>")
--- nmap("<F11>", "<Plug>VimspectorStepInto<cr>")
--- nmap("<F12>", "<Plug>VimspectorStepOut<cr>")
 
 -- Miscellanious
 imap("jk", "<Esc>")

@@ -103,9 +103,6 @@ vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 -- )
 vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
 
--- Vimspector
--- vim.g.vimspector_enable_mappings = 'VISUAL_STUDIO'
-
 -- Code Runner
 require('code_runner').setup {
 	term = {

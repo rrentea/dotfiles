@@ -93,6 +93,8 @@ require('packer').startup(function()
             require('Comment').setup()
         end
     }
+    -- Debugger
+    use { 'puremourning/vimspector' }
 
     -- Status line
     use 'feline-nvim/feline.nvim'
@@ -105,16 +107,6 @@ require('packer').startup(function()
 
     -- Linter
     use 'dense-analysis/ale'
-
-    -- Debugger
-    use {
-        "puremourning/vimspector",
-        cmd = { "VimspectorInstall", "VimspectorUpdate" },
-        fn = { "vimspector#Launch()", "vimspector#ToggleBreakpoint", "vimspector#Continue" },
-        config = function()
-            require("vimspector").setup()
-        end,
-    }
 
     -- Lark syntax
     use 'lark-parser/vim-lark-syntax'
