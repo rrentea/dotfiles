@@ -180,4 +180,6 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 require('lspconfig')['pyright'].setup {
     capabilities = capabilities
 }
+
+vim.g.ultisnips_python_style = "google"
 -----------------------------------------------------------------------------------------------
