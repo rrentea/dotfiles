@@ -5,6 +5,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.autoread = true
 
+
 vim.cmd [[set nofoldenable]]
 vim.cmd [[set clipboard=unnamedplus]]
 
@@ -58,8 +59,8 @@ end)
 ---------------------------------------------------------
 vim.o.termguicolors = true
 vim.opt.number = true -- show line numbers
-vim.opt.wrap = true -- turn on line wrapping
-vim.opt.wrapmargin = 8 -- wrap lines when coming within n characters from side
+vim.opt.mouse = "a"
+vim.opt.wrap = false 
 vim.opt.linebreak = true -- set soft wrapping
 vim.opt.showbreak = "↪"
 vim.opt.autoindent = true -- automatically set indent of new line
@@ -84,6 +85,7 @@ vim.opt.mat = 2 -- how many tenths of a second to blink
 vim.opt.updatetime = 300
 vim.opt.signcolumn = "yes"
 vim.opt.shortmess = "atToOFc" -- prompt message options
+vim.opt.laststatus = 3 -- Global status line
 
 -- Tab control
 vim.opt.smarttab = true -- tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
@@ -110,7 +112,7 @@ require('code_runner').setup {
 	term = {
 		position = "below",
 		size = 15,
-		-- mode = "startinsert"
+		mode = "startinsert"
 	},
 	filetype = {
 		java = "cd $dir && javac $fileName && java $fileNameWithoutExt",

@@ -87,7 +87,7 @@ nmap("<F1>", "<cmd>RunCode<cr>")
 
 -- Miscellanious
 imap("jk", "<Esc>")
-nmap("<leader>,", ":w<cr>")
+nmap("<leader>,", ":w!<cr>")
 nmap("<leader>/", "gcc") -- Comments the current line
 vmap("<leader>/", "gc")  -- Comments the selected lines
 
