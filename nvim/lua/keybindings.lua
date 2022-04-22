@@ -40,10 +40,9 @@ nmap('<leader>j', ':WinShift down<cr>')
 nmap('<leader>k', ':WinShift up<cr>')
 nmap('<leader>l', ':WinShift right<cr>')
 
--- Nerd Tree
-keymap('n', '<leader>n', ':NERDTree<CR>', {})
-keymap('n', '<leader>t', ':NERDTreeToggle<CR>', {})
-keymap('n', '<leader>f', ':NERDTreeFind<CR>', {})
+-- Nvim Tree
+nmap('<leader>t', ':NvimTreeToggle<CR>')
+nmap('<leader>f', ':NvimTreeFindFile<CR>')
 
 local function nkeymap(key, map)
     keymap('n', key, map, opts)

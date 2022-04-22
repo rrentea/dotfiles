@@ -40,7 +40,13 @@ require('packer').startup(function()
     })
     use 'neovim/nvim-lspconfig'
     use 'williamboman/nvim-lsp-installer'
-    use 'preservim/nerdtree'
+    -- use 'preservim/nerdtree'
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+        }
+    }
     use 'kien/ctrlp.vim'
     use 'ryanoasis/vim-devicons'
     use({
