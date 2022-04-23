@@ -22,7 +22,8 @@ require'nvim-tree'.setup {
     mappings = {
       custom_only = false,
       list = {
-        -- user mappings go here
+        { key = "\\", action = "vsplit" },
+        { key = "-", action = "split" },
       },
     },
   },
@@ -54,7 +55,7 @@ require'nvim-tree'.setup {
     args = {},
   },
   diagnostics = {
-    enable = true,
+    enable = false,
     show_on_dirs = false,
     icons = {
       hint = "",
@@ -64,13 +65,13 @@ require'nvim-tree'.setup {
     },
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
     custom = {},
     exclude = {},
   },
   git = {
     enable = true,
-    ignore = true,
+    ignore = false,
     timeout = 400,
   },
   actions = {
