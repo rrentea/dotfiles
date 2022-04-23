@@ -79,18 +79,21 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
     use { 'onsails/lspkind.nvim' }
+    use "saadparwaiz1/cmp_luasnip"
 
-    use {'SirVer/ultisnips',
-        requires = {{'honza/vim-snippets', rtp = '.'}},
-        config = function()      
-            vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'      
-            vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-            vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-            vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
-            vim.g.UltiSnipsRemoveSelectModeMappings = 0
-        end
-    }
-    use 'quangnguyen30192/cmp-nvim-ultisnips'
+    use 'L3MON4D3/LuaSnip'
+    use 'rafamadriz/friendly-snippets'
+    -- use {'SirVer/ultisnips',
+    --     requires = {{'honza/vim-snippets', rtp = '.'}},
+    --     config = function()      
+    --         vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'      
+    --         vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
+    --         vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
+    --         vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
+    --         vim.g.UltiSnipsRemoveSelectModeMappings = 0
+    --     end
+    -- }
+    -- use 'quangnguyen30192/cmp-nvim-ultisnips'
 
     use 'jiangmiao/auto-pairs'
     use {
