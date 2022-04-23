@@ -14,7 +14,8 @@ alias vim="nvim"
 alias vi="nvim"
 alias v="nvim"
 
-alias ta="tmux attach -t"
+alias ta="tmux attach"
+alias tat="tmux attach -t"
 
 alias cl="wc -l"
 

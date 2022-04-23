@@ -48,6 +48,9 @@ local function nkeymap(key, map)
     keymap('n', key, map, opts)
 end
 
+-- Telescope
+nmap('<c-p>', ':Telescope find_files<cr>')
+
 -- LSP
 nkeymap('gd', ':lua vim.lsp.buf.definition()<cr>')
 nkeymap('gD', ':lua vim.lsp.buf.declaration()<cr>')
@@ -84,6 +87,9 @@ nmap("<leader>q", ":q<cr>")
 -- Running current file
 nmap("<F1>", "<cmd>RunCode<cr>")
 
+nmap("<F2>", ":AsyncTask file-run<cr>")
+nmap("<C-b>", ":AsyncTask project-build<cr>")
+
 -- Miscellanious
 imap("jk", "<Esc>")
 nmap("<leader>,", ":w!<cr>")
@@ -92,4 +98,4 @@ vmap("<leader>/", "gc")  -- Comments the selected lines
 
 nmap("''", "ciw'<Esc>p") -- Quotes the current word with single quotes
 nmap('""', 'ciw"<Esc>p') -- Quotes the current word with double quotes
-
+vim.keymap.set("n", "<leader>ss", "<cmd>source ~/.config/nvim/init.lua<CR>")

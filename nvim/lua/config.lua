@@ -22,7 +22,7 @@ vim.cmd [[let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"]]
 vim.cmd [[ set termguicolors ]]
 
 require("feline").setup({
-	-- components = require('catppuccin.core.integrations.feline'),
+	components = require('catppuccin.core.integrations.feline'),
 })
 
 -- Color Scheme
@@ -107,19 +107,7 @@ vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 -- )
 vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
 
--- Code Runner
-require('code_runner').setup {
-	term = {
-		position = "below",
-		size = 15,
-		mode = "startinsert"
-	},
-	filetype = {
-		java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
-		python = "python",
-		typescript = "deno run",
-		rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt"
-	},
-}
-
-vim.g.NERDTreeShowHidden = 1 -- Showing hidden files in NERD Tree by default
+vim.g.asyncrun_open = 6
+vim.g.asynctasks_term_pos = 'bottom'
+vim.g.asynctasks_term_rows = 10   -- set height for the horizontal terminal split
+vim.g.asynctasks_term_cols = 80   -- set width for vertical terminal split

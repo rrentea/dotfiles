@@ -47,7 +47,6 @@ require('packer').startup(function()
             'kyazdani42/nvim-web-devicons',
         }
     }
-    use 'kien/ctrlp.vim'
     use 'ryanoasis/vim-devicons'
     use({
         "nvim-telescope/telescope.nvim",
@@ -57,9 +56,6 @@ require('packer').startup(function()
         end,
     })
     use 'nvim-telescope/telescope-fzy-native.nvim'
-    use { 'CRAG666/code_runner.nvim',
-        requires = 'nvim-lua/plenary.nvim'
-    }
     use {
         'ray-x/lsp_signature.nvim',
         config = function()
@@ -79,21 +75,10 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-cmdline'
     use 'hrsh7th/nvim-cmp'
     use { 'onsails/lspkind.nvim' }
-    use "saadparwaiz1/cmp_luasnip"
 
+    use "saadparwaiz1/cmp_luasnip"
     use 'L3MON4D3/LuaSnip'
     use 'rafamadriz/friendly-snippets'
-    -- use {'SirVer/ultisnips',
-    --     requires = {{'honza/vim-snippets', rtp = '.'}},
-    --     config = function()      
-    --         vim.g.UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'      
-    --         vim.g.UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_jump_forward)'
-    --         vim.g.UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_jump_backward)'
-    --         vim.g.UltiSnipsListSnippets = '<c-x><c-s>'
-    --         vim.g.UltiSnipsRemoveSelectModeMappings = 0
-    --     end
-    -- }
-    -- use 'quangnguyen30192/cmp-nvim-ultisnips'
 
     use 'jiangmiao/auto-pairs'
     use {
@@ -104,6 +89,10 @@ require('packer').startup(function()
     }
     -- Debugger
     use { 'puremourning/vimspector' }
+
+    -- Vscode like tasks
+    use 'skywind3000/asynctasks.vim'
+    use 'skywind3000/asyncrun.vim'
 
     -- Status line
     use 'feline-nvim/feline.nvim'
@@ -119,9 +108,6 @@ require('packer').startup(function()
 
     -- Lark syntax
     use 'lark-parser/vim-lark-syntax'
-
-    -- Window movement
-    use 'sindrets/winshift.nvim'
 
     -- Transparent Background
     use {
