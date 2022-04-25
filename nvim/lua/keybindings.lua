@@ -26,7 +26,6 @@ nmap("<S-enter>", "O<Esc>")
 
 local opts = { noremap = true }
 
--- Window movement and resizing (Rizesing is not quite as I want it to be)
 nmap('<a-j>', '<C-w>j')
 nmap('<a-h>', '<C-w>h')
 nmap('<a-k>', '<C-w>k')
@@ -35,10 +34,6 @@ nmap('<a-s-h>', '<c-w><')
 nmap('<a-s-j>', '<c-w>+')
 nmap('<a-s-k>', '<c-w>-')
 nmap('<a-s-l>', '<c-w>>')
-nmap('<leader>h', ':WinShift left<cr>')
-nmap('<leader>j', ':WinShift down<cr>')
-nmap('<leader>k', ':WinShift up<cr>')
-nmap('<leader>l', ':WinShift right<cr>')
 
 -- Nvim Tree
 nmap('<leader>t', ':NvimTreeToggle<CR>')
@@ -63,17 +58,35 @@ nkeymap('gk', ':lua vim.lsp.buf.hover()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
 
--- Vimspector
-nmap('<leader>dc', '<cmd>lua require("vimspector").generate_debug_profile()<cr>')
-nmap('<leader>dl', '<Plug>VimspectorLaunch')
-nmap('<leader>ds', '<cmd>VimspectorReset<cr>')
-nmap('<leader>dr', '<Plug>VimspectorRestart')
-nmap('<F5>', '<Plug>VimspectorContinue')
--- nmap('<F6>', '<Plug>VimspectorPause')
-nmap('<F9>', '<Plug>VimspectorToggleBreakpoint')
-nmap('<F10>', '<Plug>VimspectorStepOver')
-nmap('<F11>', '<Plug>VimspectorStepInto')
--- nmap('<S-F11>', '<Plug>VimspectorStepOut')
+vim.keymap.set('n', '<leader>dc', function() require("nvim-dap").generate_debug_profile() end)
+vim.keymap.set('n', '<leader>dh', function() require("dap").toggle_breakpoint() end)
+vim.keymap.set('n', '<leader>ds', function()
+    require("dap").continue()
+    require("NvimTree").close()
+end)
+vim.keymap.set('n', '<leader>dq', function()
+    require("dap").terminate()
+    require("dapui").close()
+end)
+vim.keymap.set('n', '<S-k>', function() require"dap".step_out() end)
+vim.keymap.set('n', "<S-l>", function() require"dap".step_into() end)
+vim.keymap.set('n', '<S-j>', function() require"dap".step_over() end)
+vim.keymap.set('n', '<S-h>', function() require"dap".continue() end)
+vim.keymap.set('n', '<leader>di', function() require('dap.ui.widgets').hover() end)
+vim.keymap.set('n', '<leader>d?', function()
+    local widgets = require('dap.ui.widgets')
+    widgets.centered_float(widgets.scopes)
+end)
+vim.keymap.set('n', '<leader>dk', function() require('dap').up() end)
+vim.keymap.set('n', '<leader>dj', function() require('dap').down() end)
+
+vim.keymap.set('n', '<leader>dl', function ()
+    require('dap.ext.vscode').load_launchjs()
+end)
+
+vim.keymap.set('n', '<leader>df', ':Telescope dap frames<CR>')
+vim.keymap.set('n', '<leader>db', ':Telescope dap list_breakpoints<CR>')
+vim.keymap.set('n', '<leader>du', function() require('dapui').toggle() end)
 
 -- LazyGit
 nmap("<leader>g", ":LazyGit<cr>")
@@ -84,10 +97,8 @@ nmap("<a-_>", ":sp<cr>")
 
 nmap("<leader>q", ":q<cr>")
 
--- Running current file
-nmap("<F1>", "<cmd>RunCode<cr>")
-
-nmap("<F2>", ":AsyncTask file-run<cr>")
+-- Running and building code
+nmap("<F1>", ":AsyncTask file-run<cr>")
 nmap("<C-b>", ":AsyncTask project-build<cr>")
 
 -- Miscellanious

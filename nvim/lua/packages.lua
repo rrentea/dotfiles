@@ -53,8 +53,10 @@ require('packer').startup(function()
         requires = { { "nvim-lua/plenary.nvim" }, { "kdheepak/lazygit.nvim" } },
         config = function()
             require("telescope").load_extension("lazygit")
+            require("telescope").load_extension("dap")
         end,
     })
+    use 'nvim-lua/popup.nvim'
     use 'nvim-telescope/telescope-fzy-native.nvim'
     use {
         'ray-x/lsp_signature.nvim',
@@ -88,7 +90,10 @@ require('packer').startup(function()
         end
     }
     -- Debugger
-    use { 'puremourning/vimspector' }
+    use 'mfussenegger/nvim-dap'
+    use 'nvim-telescope/telescope-dap.nvim'
+    use 'theHamsta/nvim-dap-virtual-text'
+    use 'rcarriga/nvim-dap-ui'
 
     -- Vscode like tasks
     use 'skywind3000/asynctasks.vim'
@@ -130,4 +135,5 @@ require('packer').startup(function()
             })
         end
     }
+    use 'preservim/vimux'
 end)

@@ -19,6 +19,9 @@ alias tat="tmux attach -t"
 
 alias cl="wc -l"
 
+alias fzfh="source fzfh"
+alias fzfr="source fzfr"
+
 export EDITOR='nvim'
 # export TERM='screen-256color'
 
