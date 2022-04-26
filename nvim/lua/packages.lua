@@ -38,9 +38,13 @@ require('packer').startup(function()
             })
         end
     })
-    use 'neovim/nvim-lspconfig'
-    use 'williamboman/nvim-lsp-installer'
-    -- use 'preservim/nerdtree'
+    use {
+        'junnplus/nvim-lsp-setup',
+        requires = {
+            'neovim/nvim-lspconfig',
+            'williamboman/nvim-lsp-installer',
+        }
+    }
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {
@@ -136,4 +140,6 @@ require('packer').startup(function()
         end
     }
     use 'preservim/vimux'
+    use 'tpope/vim-surround'
+    use 'Asheq/close-buffers.vim'
 end)

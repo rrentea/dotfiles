@@ -39,40 +39,41 @@ nmap('<a-s-l>', '<c-w>>')
 nmap('<leader>t', ':NvimTreeToggle<CR>')
 nmap('<leader>f', ':NvimTreeFindFile<CR>')
 
-local function nkeymap(key, map)
-    keymap('n', key, map, opts)
-end
-
 -- Telescope
 nmap('<c-p>', ':Telescope find_files<cr>')
 
--- LSP
-nkeymap('gd', ':lua vim.lsp.buf.definition()<cr>')
-nkeymap('gD', ':lua vim.lsp.buf.declaration()<cr>')
-nkeymap('gi', ':lua vim.lsp.buf.implementation()<cr>')
-nkeymap('gw', ':lua vim.lsp.buf.document_symbol()<cr>')
-nkeymap('gw', ':lua vim.lsp.buf.workspace_symbol()<cr>')
-nkeymap('gr', ':lua vim.lsp.buf.references()<cr>')
-nkeymap('gt', ':lua vim.lsp.buf.type_definition()<cr>')
-nkeymap('gk', ':lua vim.lsp.buf.hover()<cr>')
-nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
-nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
-
+----------------------------------
+----------DEBUG BINDINGS----------
+----------------------------------
 vim.keymap.set('n', '<leader>dc', function() require("nvim-dap").generate_debug_profile() end)
 vim.keymap.set('n', '<leader>dh', function() require("dap").toggle_breakpoint() end)
+
+-- When starting debugging I always want to use the config in launch.json
+-- I never want to debug without a configuration
+-- It should be consistent when launch.json is changed and I don't have to think about it
 vim.keymap.set('n', '<leader>ds', function()
+    -- local count = 0
+    -- for _ in pairs(require('dap').configurations.python) do
+    --     count = count + 1
+    -- end
+    -- if count == 0 then
+    --     print('got here')
+    --     require('dap.ext.vscode').load_launchjs()
+    -- end
+    require('dap').configurations.python = {} -- Clearing any current configuration
+    require('dap.ext.vscode').load_launchjs()
     require("dap").continue()
-    require("NvimTree").close()
+    require("nvim-tree.view").close()
 end)
 vim.keymap.set('n', '<leader>dq', function()
     require("dap").terminate()
     require("dapui").close()
 end)
-vim.keymap.set('n', '<S-k>', function() require"dap".step_out() end)
-vim.keymap.set('n', "<S-l>", function() require"dap".step_into() end)
-vim.keymap.set('n', '<S-j>', function() require"dap".step_over() end)
-vim.keymap.set('n', '<S-h>', function() require"dap".continue() end)
-vim.keymap.set('n', '<leader>di', function() require('dap.ui.widgets').hover() end)
+vim.keymap.set('n', '<S-k>', function() require "dap".step_out() end)
+vim.keymap.set('n', "<S-l>", function() require "dap".step_into() end)
+vim.keymap.set('n', '<S-j>', function() require "dap".step_over() end)
+vim.keymap.set('n', '<S-h>', function() require "dap".continue() end)
+vim.keymap.set('n', '<leader>di', function() require('dapui').eval(nil, { enter = true }) end)
 vim.keymap.set('n', '<leader>d?', function()
     local widgets = require('dap.ui.widgets')
     widgets.centered_float(widgets.scopes)
@@ -80,13 +81,16 @@ end)
 vim.keymap.set('n', '<leader>dk', function() require('dap').up() end)
 vim.keymap.set('n', '<leader>dj', function() require('dap').down() end)
 
-vim.keymap.set('n', '<leader>dl', function ()
+vim.keymap.set('n', '<leader>dl', function()
     require('dap.ext.vscode').load_launchjs()
 end)
 
 vim.keymap.set('n', '<leader>df', ':Telescope dap frames<CR>')
 vim.keymap.set('n', '<leader>db', ':Telescope dap list_breakpoints<CR>')
 vim.keymap.set('n', '<leader>du', function() require('dapui').toggle() end)
+----------------------------------
+----------DEBUG BINDINGS----------
+----------------------------------
 
 -- LazyGit
 nmap("<leader>g", ":LazyGit<cr>")
@@ -105,7 +109,8 @@ nmap("<C-b>", ":AsyncTask project-build<cr>")
 imap("jk", "<Esc>")
 nmap("<leader>,", ":w!<cr>")
 nmap("<leader>/", "gcc") -- Comments the current line
-vmap("<leader>/", "gc")  -- Comments the selected lines
+vmap("<leader>/", "gc") -- Comments the selected lines
+vim.keymap.set('i', '<S-enter>', '<C-o>o')
 
 nmap("''", "ciw'<Esc>p") -- Quotes the current word with single quotes
 nmap('""', 'ciw"<Esc>p') -- Quotes the current word with double quotes
