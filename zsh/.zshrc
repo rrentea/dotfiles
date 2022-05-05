@@ -3,12 +3,13 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export PATH="/usr/include/python3.9:/home/rrentea/.local/bin:/home/rrentea/bin:$PATH"
+export PATH="/home/rrentea/tools/lua-language-server/bin:/home/rrentea/neovim/bin:/usr/include/python3.9:/home/rrentea/.local/bin:/home/rrentea/bin:$PATH"
+export SHELL="$(which zsh)"
 
 alias python="python3"
 alias pip="pip3"
 alias wenv="source /home/rrentea/Work/work_env/bin/activate"
-alias env="source env/bin/activate"
+# alias env="source env/bin/activate"
 alias venv="source venv/bin/activate"
 alias vim="nvim"
 alias vi="nvim"
@@ -19,13 +20,12 @@ alias tat="tmux attach -t"
 
 alias cl="wc -l"
 
-alias fzfh="source fzfh"
+alias cf="source cf"
 alias fzfr="source fzfr"
 
 export EDITOR='nvim'
 # export TERM='screen-256color'
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -120,3 +120,5 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias luamake=/home/rrentea/tools/lua-language-server/3rd/luamake/luamake

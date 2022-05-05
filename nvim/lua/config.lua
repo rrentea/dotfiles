@@ -15,52 +15,167 @@ vim.cmd [[ set number ]]
 
 
 -- LSP Config
-require('nvim-lsp-setup').setup({
-    default_mappings = false,
-    -- Example mappings for telescope pickers:
-    -- gd = 'lua require"telescope.builtin".lsp_definitions()',
-    -- gi = 'lua require"telescope.builtin".lsp_implementations()',
-    -- gr = 'lua require"telescope.builtin".lsp_references()',
-    mappings = {
-        gD = 'lua vim.lsp.buf.declaration()',
-        gd = 'lua vim.lsp.buf.definition()',
-        gt = 'lua vim.lsp.buf.type_definition()',
-        gi = 'lua vim.lsp.buf.implementation()',
-        gr = 'lua vim.lsp.buf.references()',
-        -- K = 'lua vim.lsp.buf.hover()',
-        -- ['<C-k>'] = 'lua vim.lsp.buf.signature_help()',
-        ['<C-k>'] = 'lua vim.lsp.buf.hover()',
-        ['<space>rn'] = 'lua vim.lsp.buf.rename()',
-        ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
-        ['<space>f'] = 'lua vim.lsp.buf.formatting()',
-        ['<space>e'] = 'lua vim.lsp.diagnostic.show_line_diagnostics()',
-        ['[d'] = 'lua vim.lsp.diagnostic.goto_prev()',
-        [']d'] = 'lua vim.lsp.diagnostic.goto_next()',
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+    print("hello")
+    -- Enable completion triggered by <c-x><c-o>
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- Mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = 0 })
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = 0 })
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer = 0 })
+    vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<CR>', { buffer = 0 })
+    vim.keymap.set('n', 'gl', '<cmd>Telescope diagnostics<CR>', { buffer = 0 })
+    vim.keymap.set('n', 'F', function() vim.lsp.buf.format { async = true } end, { buffer = 0 })
+    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, { buffer = 0 })
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = 0 })
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = 0 })
+    vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next, { buffer = 0 })
+    vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev, { buffer = 0 })
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+require('lspconfig').pyright.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+}
+require('lspconfig').clangd.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+}
+
+local sumneko_binary_path = vim.fn.exepath('lua-language-server')
+local sumneko_root_path = vim.fn.fnamemodify(sumneko_binary_path, ':h:h')
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require 'lspconfig'.sumneko_lua.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { sumneko_binary_path, "-E", sumneko_root_path .. "/main.lua" };
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+                -- Setup your lua path
+                path = runtime_path,
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim', 'use' },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
     },
-    -- Global on_attach
-    -- on_attach = function(client, bufnr)
-    --     require('nvim-lsp-setup.utils').format_on_save(client)
-    -- end,
-    -- Global capabilities
-    -- capabilities = vim.lsp.protocol.make_client_capabilities(),
-    -- LSP servers
-    servers = {
-        -- Install LSP servers automatically
-        -- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-        pyright = {},
-        sumneko_lua = {
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { 'vim', 'use' }
-                    },
-                }
-            }
-        }
-    },
-})
+}
 
 
+
+-- require('nvim-lsp-setup').setup({
+--     default_mappings = false,
+--     -- Example mappings for telescope pickers:
+--     -- gd = 'lua require"telescope.builtin".lsp_definitions()',
+--     -- gi = 'lua require"telescope.builtin".lsp_implementations()',
+--     -- gr = 'lua require"telescope.builtin".lsp_references()',
+--     mappings = {
+--         gD = 'lua vim.lsp.buf.declaration()',
+--         gd = 'lua vim.lsp.buf.definition()',
+--         gt = 'lua vim.lsp.buf.type_definition()',
+--         gi = 'lua vim.lsp.buf.implementation()',
+--         gr = 'lua vim.lsp.buf.references()',
+--         -- K = 'lua vim.lsp.buf.hover()',
+--         -- ['<C-k>'] = 'lua vim.lsp.buf.signature_help()',
+--         ['<C-k>'] = 'lua vim.lsp.buf.hover()',
+--         ['<space>rn'] = 'lua vim.lsp.buf.rename()',
+--         ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
+--         ['<space>f'] = 'lua vim.lsp.buf.formatting()',
+--         ['<space>e'] = 'lua vim.lsp.diagnostic.show_line_diagnostics()',
+--         ['[d'] = 'lua vim.lsp.diagnostic.goto_prev()',
+--         [']d'] = 'lua vim.lsp.diagnostic.goto_next()',
+--     },
+--     -- Global on_attach
+--     -- on_attach = function(client, bufnr)
+--     --     require('nvim-lsp-setup.utils').format_on_save(client)
+--     -- end,
+--     -- Global capabilities
+--     -- capabilities = vim.lsp.protocol.make_client_capabilities(),
+--     -- LSP servers
+--     servers = {
+--         -- Install LSP servers automatically
+--         -- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+--         pyright = {},
+--         sumneko_lua = {
+--             settings = {
+--                 Lua = {
+--                     diagnostics = {
+--                         globals = { 'vim', 'use' },
+--                     },
+--                 }
+--             }
+--         },
+--         ccls = {},
+--     },
+-- })
+-- local saga = require('lspsaga')
+-- use_saga_diagnostic_sign = true
+-- error_sign = '',
+-- warn_sign = '',
+-- hint_sign = '',
+-- infor_sign = '',
+-- dianostic_header_icon = '   ',
+-- code_action_icon = ' ',
+-- code_action_prompt = {
+--   enable = true,
+--   sign = true,
+--   sign_priority = 20,
+--   virtual_text = true,
+-- },
+-- finder_definition_icon = '  ',
+-- finder_reference_icon = '  ',
+-- max_preview_lines = 10, -- preview lines of lsp_finder and definition preview
+-- finder_action_keys = {
+--   open = 'o', vsplit = 's',split = 'i',quit = 'q',scroll_down = '<C-f>', scroll_up = '<C-b>' -- quit can be a table
+-- },
+-- code_action_keys = {
+--   quit = 'q',exec = '<CR>'
+-- },
+-- rename_action_keys = {
+--   quit = '<C-c>',exec = '<CR>'  -- quit can be a table
+-- },
+-- definition_preview_icon = '  '
+-- "single" "double" "round" "plus"
+-- border_style = "single"
+-- rename_prompt_prefix = '➤',
+-- if you don't use nvim-lspconfig you must pass your server name and
+-- the related filetypes into this table
+-- like server_filetype_map = {metals = {'sbt', 'scala'}}
+-- server_filetype_map = {}('lspsaga')
+-- saga.init_lsp_saga()
+
+
+-- Telescope
+-- require('telescope').setup({
+--     file_ingore_patterns = {".*/env/.*", ".*/venv/.*"}
+-- })
+
+-- Debug Config
 local dap = require('dap')
 local dapui = require('dapui')
 
@@ -70,6 +185,27 @@ dap.adapters.python = {
     args = { '-m', 'debugpy.adapter' };
 }
 
+dap.adapters.cppdbg = {
+  id = 'cppdbg',
+  type = 'executable',
+  command = '/home/rrentea/bin/extension/debugAdapters/bin/OpenDebugAD7',
+  -- command = 'gdb',
+  options = {
+    detached = false
+  }
+}
+dap.configurations.cpp = {
+    {
+        name = "Launch file",
+        type = "cppdbg",
+        request = "launch",
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = true,
+    }
+}
 dap.configurations.python = {
     -- {
     --   type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
@@ -123,6 +259,18 @@ require("feline").setup({
     components = require('catppuccin.core.integrations.feline'),
 })
 
+
+-- ALE config
+vim.g.ale_python_pylint_executable = 'flake8'
+vim.g.ale_python_pyling_use_global = 1
+vim.g.ale_virtualenv_dir_names = {'env', 'venv'}
+
+vim.g.ale_fixers = {
+    python = {'yapf'},
+    cpp = {'clang-format'}
+}
+
+
 -- Color Scheme
 vim.cmd [[ colorscheme catppuccin ]]
 
@@ -156,7 +304,7 @@ vim.opt.wildmenu = true -- enhanced command line completion
 vim.opt.hidden = true -- current buffer can be put into background
 vim.opt.showcmd = true -- show incomplete commands
 vim.opt.showmode = true -- don't show which mode disabled for PowerLine
-vim.opt.wildmode = { "list", "longest" } -- complete files like a shell
+vim.opt.wildmode = { "list", "full" }
 vim.opt.shell = vim.env.SHELL
 vim.opt.cmdheight = 1 -- command bar height
 vim.opt.title = true -- set terminal title
@@ -167,6 +315,14 @@ vim.opt.signcolumn = "yes"
 vim.opt.shortmess = "atToOFc" -- prompt message options
 vim.opt.laststatus = 3 -- Global status line
 vim.opt.autowriteall = true
+vim.opt.colorcolumn = "0"
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    callback = function()
+        vim.api.nvim_command('set cc=80')
+    end
+})
 
 -- Tab control
 vim.opt.smarttab = true -- tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
@@ -192,3 +348,5 @@ vim.g.asyncrun_open = 6
 vim.g.asynctasks_term_pos = 'bottom'
 vim.g.asynctasks_term_rows = 10 -- set height for the horizontal terminal split
 vim.g.asynctasks_term_cols = 80 -- set width for vertical terminal split
+
+vim.g.windowswap_map_keys = 0
