@@ -34,7 +34,7 @@ local local_bin = os.getenv("HOME") .. "/.local/bin/"
 local home_bin = os.getenv("HOME") .. "/bin/"
 local rofi_bin = os.getenv("HOME") .. "/.config/rofi/bin/"
 local randr = local_bin .. "randr"
--- local picom = "picom --experimental-backends -b --config " .. theme_dir .. "conf/picom.conf"
+local picom = "picom --experimental-backends -b --config " .. theme_dir .. "conf/picom.conf"
 local autostart = home_bin .. "autostart"
 local recordmenu = local_bin .. "recordmenu"
 local dmenu_run = local_bin .. "dmenu_run_history"
@@ -45,6 +45,8 @@ local switcher = require("awesome-switcher")
 local xrandr = require("xrandr")
 
 awful.util.spawn(autostart, false)
+awful.util.spawn(picom, false)
+
 
 -- }}}
 
@@ -93,20 +95,20 @@ local altkey = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.fair,
-    awful.layout.suit.max,
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.ne,
-    awful.layout.suit.corner.sw,
-    awful.layout.suit.corner.se,
+    awful.layout.suit.floating,
+    -- awful.layout.suit.spiral.dwindle,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.max,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.top,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.magnifier,
+    -- awful.layout.suit.corner.ne,
+    -- awful.layout.suit.corner.sw,
+    -- awful.layout.suit.corner.se,
 }
 -- }}}
 
@@ -734,17 +736,17 @@ local globalkeys = gears.table.join(
 
     -- Layout manipulation
     awful.key({ modkey, "Control" }, "s", function() xrandr.xrandr() end),
-    awful.key({ modkey }, "period", function()
+    awful.key({ modkey, "Control" }, "=", function()
         awful.tag.incmwfact(0.05)
     end, { description = "increase master width factor", group = "layout" }),
-    awful.key({ modkey }, "comma", function()
+    awful.key({ modkey, "Control" }, "-", function()
         awful.tag.incmwfact(-0.05)
     end, { description = "decrease master width factor", group = "layout" }),
 
-    awful.key({ modkey, "Control" }, "h", function()
+    awful.key({ modkey, "Control" }, "]", function()
         awful.tag.incncol(1, nil, true)
     end, { description = "increase the number of columns", group = "layout" }),
-    awful.key({ modkey, "Control" }, "l", function()
+    awful.key({ modkey, "Control" }, "[", function()
         awful.tag.incncol(-1, nil, true)
     end, { description = "decrease the number of columns", group = "layout" }),
 
