@@ -24,7 +24,8 @@ require('packer').startup(function()
         'kyazdani42/nvim-tree.lua',
         requires = {
             'kyazdani42/nvim-web-devicons',
-        }
+        },
+        config = require('plugins.configs.nvimtree')
     }
 
 
@@ -84,7 +85,7 @@ require('packer').startup(function()
 
 
     -- Snippets
-    use 'L3MON4D3/LuaSnip'
+    use { 'L3MON4D3/LuaSnip', config = require('plugins.configs.luasnip') }
     use 'rafamadriz/friendly-snippets'
 
     use { 'onsails/lspkind.nvim' }
@@ -116,7 +117,7 @@ require('packer').startup(function()
     use { 'lewis6991/gitsigns.nvim', config = require('plugins.configs.gitsigns')}
 
     -- Linter
-    use 'dense-analysis/ale'
+    use { 'dense-analysis/ale', config = require('plugins.configs.ale') }
 
     -- Lark syntax
     use 'lark-parser/vim-lark-syntax'

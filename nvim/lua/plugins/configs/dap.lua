@@ -20,6 +20,7 @@ dap.adapters.cppdbg = {
     detached = false
   }
 }
+
 dap.configurations.cpp = {
     {
         name = "Launch file",

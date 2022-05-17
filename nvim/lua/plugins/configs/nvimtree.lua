@@ -1,4 +1,10 @@
-require'nvim-tree'.setup {
+local ok, nvimtree = pcall(require, "nvim-tree")
+
+if not ok then
+    return
+end
+
+nvimtree.setup {
   auto_reload_on_write = true,
   disable_netrw = false,
   hijack_cursor = false,

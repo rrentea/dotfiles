@@ -36,3 +36,11 @@ vim.api.nvim_create_autocmd("BufLeave", {
         vim.api.nvim_command('w!')
     end
 })
+
+-- Disable line numbers in terminal mode
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "*",
+    callback = function ()
+        vim.api.nvim_command('setlocal nonumber norelativenumber')
+    end
+})

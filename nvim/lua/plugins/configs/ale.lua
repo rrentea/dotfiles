@@ -12,3 +12,5 @@ vim.g.ale_fixers = {
     python = {'yapf'},
     cpp = {'clang-format'}
 }
+
+ale.setup()

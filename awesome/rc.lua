@@ -40,6 +40,7 @@ local recordmenu = local_bin .. "recordmenu"
 local dmenu_run = local_bin .. "dmenu_run_history"
 local rofi_window = rofi_bin .. "rofi_window"
 local rofi_launcher = rofi_bin .. "rofi_launcher"
+-- local rofi_launcher = terminal .. " -e " .. "fzf_run"
 local rofi_powermenu = rofi_bin .. "rofi_powermenu"
 local switcher = require("awesome-switcher")
 local xrandr = require("xrandr")

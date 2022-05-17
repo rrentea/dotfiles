@@ -30,15 +30,16 @@ vim.keymap.set('n', '<c-s>', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
 ----------------------------------
 ----------DEBUG BINDINGS----------
 ----------------------------------
+local dap = require("dap")
 vim.keymap.set('n', '<leader>dc', function() require("nvim-dap").generate_debug_profile() end)
-vim.keymap.set('n', '<leader>dh', function() require("dap").toggle_breakpoint() end)
+vim.keymap.set('n', '<leader>dh', function() dap.toggle_breakpoint() end)
 
 -- When starting debugging I always want to use the config in launch.json
 -- I never want to debug without a configuration
 -- It should be consistent when launch.json is changed and I don't have to think about it
 vim.keymap.set('n', '<leader>ds', function()
-    require('dap').configurations.python = {} -- Clearing any current configuration
-    require('dap').configurations.cpp = {} -- Clearing any current configuration
+    dap.configurations.python = {} -- Clearing any current configuration
+    dap.configurations.cpp = {} -- Clearing any current configuration
     require('dap.ext.vscode').load_launchjs(nil, { cppdbg = {'c', 'cpp'} })
     require("dap").continue()
     require("nvim-tree.view").close()
@@ -56,8 +57,8 @@ vim.keymap.set('n', '<leader>d?', function()
     local widgets = require('dap.ui.widgets')
     widgets.centered_float(widgets.scopes)
 end)
-vim.keymap.set('n', '<leader>dk', function() require('dap').up() end)
-vim.keymap.set('n', '<leader>dj', function() require('dap').down() end)
+vim.keymap.set('n', '<leader>dk', function() dap.up() end)
+vim.keymap.set('n', '<leader>dj', function() dap.down() end)
 
 vim.keymap.set('n', '<leader>dl', function()
     require('dap.ext.vscode').load_launchjs()
