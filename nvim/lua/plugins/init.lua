@@ -90,7 +90,7 @@ require('packer').startup(function()
 
     use { 'onsails/lspkind.nvim' }
 
-    use 'jiangmiao/auto-pairs'
+    use { 'jiangmiao/auto-pairs', config = require('plugins.configs.autopairs')}
 
 
     -- Comment
@@ -121,6 +121,9 @@ require('packer').startup(function()
 
     -- Lark syntax
     use 'lark-parser/vim-lark-syntax'
+
+    -- Terminal
+    use { 'akinsho/toggleterm.nvim', config = require('plugins.configs.toggleterm') }
 
     -- Transparent Background
     use 'preservim/vimux'
