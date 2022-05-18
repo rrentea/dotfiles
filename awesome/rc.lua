@@ -46,7 +46,7 @@ local switcher = require("awesome-switcher")
 local xrandr = require("xrandr")
 
 awful.util.spawn(autostart, false)
-awful.util.spawn(picom, false)
+-- awful.util.spawn(picom, false)
 
 
 -- }}}
@@ -617,8 +617,8 @@ local globalkeys = gears.table.join(
     end, { description = "mpc next", group = "launcher" }),
 
     awful.key({ modkey }, "Return", function()
-        awful.spawn("kitty -e zsh")
-    end, { description = "open kitty with zsh", group = "launcher" }),
+        awful.spawn("kitty -e fish")
+    end, { description = "open kitty with fish", group = "launcher" }),
 
     awful.key({}, "XF86AudioMute", function()
         awful.spawn("pamixer -t", false)

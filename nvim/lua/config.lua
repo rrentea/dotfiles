@@ -73,7 +73,7 @@ vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 
 vim.g.asyncrun_open = 6
 vim.g.asynctasks_term_pos = 'bottom'
-vim.g.asynctasks_term_rows = 10 -- set height for the horizontal terminal split
+vim.g.asynctasks_term_rows = 20 -- set height for the horizontal terminal split
 vim.g.asynctasks_term_cols = 80 -- set width for vertical terminal split
 
 vim.g.windowswap_map_keys = 0

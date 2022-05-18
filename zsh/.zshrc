@@ -5,6 +5,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="/home/rrentea/tools/lua-language-server/bin:/home/rrentea/neovim/bin:/usr/include/python3.9:/home/rrentea/.local/bin:/home/rrentea/bin:$PATH"
 export SHELL="$(which zsh)"
+export XDG_CONFIG_HOME="/home/rrentea/.config"
 
 alias python="python3"
 alias pip="pip3"

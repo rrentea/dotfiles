@@ -37,7 +37,7 @@ function _G.set_terminal_keymaps()
 end
 
 vim.api.nvim_create_autocmd('TermOpen', {
-    pattern = "term://*",
+    pattern = "term://*toggleterm#*",
     callback = function ()
         set_terminal_keymaps()
     end

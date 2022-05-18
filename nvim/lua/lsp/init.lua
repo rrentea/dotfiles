@@ -18,6 +18,16 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
+local diagnostics_active = true
+vim.keymap.set('n', '<leader>dt', function()
+    diagnostics_active = not diagnostics_active
+    if diagnostics_active then
+        vim.diagnostic.show()
+    else
+        vim.diagnostic.hide()
+    end
+end)
+
 -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 --
 -- local lsp_formatting = function(bufnr)
