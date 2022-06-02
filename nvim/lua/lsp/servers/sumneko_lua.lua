@@ -14,6 +14,7 @@ local settings = {
                 "assert",
                 "before_each",
                 "after_each",
+                "awesome"
             },
         },
         disable = {

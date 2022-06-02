@@ -8,10 +8,16 @@ vim.keymap.set('n', "<leader>,", ":w<cr>")
 vim.keymap.set('n', "<enter>", "o<Esc>")
 vim.keymap.set('n', "<S-enter>", "O<Esc>")
 
-vim.keymap.set('n', '<a-j>', '<C-w>j')
-vim.keymap.set('n', '<a-h>', '<C-w>h')
-vim.keymap.set('n', '<a-k>', '<C-w>k')
-vim.keymap.set('n', '<a-l>', '<c-w>l')
+-- vim.keymap.set('n', '<a-j>', '<C-w>j')
+-- vim.keymap.set('n', '<a-h>', '<C-w>h')
+-- vim.keymap.set('n', '<a-k>', '<C-w>k')
+-- vim.keymap.set('n', '<a-l>', '<c-w>l')
+
+vim.keymap.set('n', '<a-j>', function() require('winmove').winmove('j') end)
+vim.keymap.set('n', '<a-h>', function() require('winmove').winmove('h') end)
+vim.keymap.set('n', '<a-k>', function() require('winmove').winmove('k') end)
+vim.keymap.set('n', '<a-l>', function() require('winmove').winmove('l') end)
+
 vim.keymap.set('n', '<c-a-h>', '<c-w><')
 vim.keymap.set('n', '<c-a-j>', '<c-w>+')
 vim.keymap.set('n', '<c-a-k>', '<c-w>-')
@@ -72,8 +78,8 @@ vim.keymap.set('n', '<leader>du', function() require('dapui').toggle(nil) end)
 vim.keymap.set('n', "<leader>g", ":LazyGit<cr>")
 
 -- Window management
-vim.keymap.set('n', "<a-|>", ":vs<cr>")
-vim.keymap.set('n', "<a-_>", ":sp<cr>")
+vim.keymap.set('n', "<leader>v", ":vs<cr>")
+vim.keymap.set('n', "<leader>x", ":sp<cr>")
 vim.keymap.set('n', "<leader>q", ":q<cr>")
 vim.keymap.set('n', '<leader>Q', ':qa<CR>')
 
@@ -93,6 +99,10 @@ vim.keymap.set('n', "<C-b>", ":AsyncTask project-build<cr>")
 -- Moving lines up and down
 vim.keymap.set('v', '<S-j>', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', '<S-k>', ":m '<-2<CR>gv=gv")
+
+-- Spectre
+vim.keymap.set('n', '<leader>ss', function() require('spectre').open() end)
+vim.keymap.set('n', '<leader>sw', function() require('spectre').open_visual({selected_word=true}) end)
 
 -- Miscellanious
 vim.keymap.set('i', "jk", "<Esc>")

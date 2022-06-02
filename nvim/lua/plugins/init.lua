@@ -28,10 +28,12 @@ require('packer').startup(function()
         config = require('plugins.configs.nvimtree')
     }
 
-
     -- ColorScheme
-    use { 'catppuccin/nvim', as = 'catppuccin' }
-
+    use {
+        'catppuccin/nvim',
+        as = 'catppuccin',
+        config = require('plugins.configs.catppuccin')
+    }
 
     -- TreeSitter
     use {
@@ -39,12 +41,12 @@ require('packer').startup(function()
         requires = {
             'nvim-treesitter/nvim-treesitter-textobjects',
             'nvim-treesitter/playground',
-            'mfussenegger/nvim-ts-hint-textobject'
+            'mfussenegger/nvim-ts-hint-textobject',
+            'p00f/nvim-ts-rainbow'
         },
         run = ':TSUpdate',
         config = require('plugins.configs.treesitter')
     }
-
 
     -- LSP
     use {
@@ -58,6 +60,7 @@ require('packer').startup(function()
         requires = {
             'nvim-lua/plenary.nvim',
             'kdheepak/lazygit.nvim',
+            'nvim-telescope/telescope-media-files.nvim',
             'nvim-telescope/telescope-fzy-native.nvim'
         },
         config = require('plugins.configs.telescope'),
@@ -92,6 +95,13 @@ require('packer').startup(function()
 
     use { 'jiangmiao/auto-pairs', config = require('plugins.configs.autopairs')}
 
+    --Diagnostics
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = require('plugins.configs.trouble')
+    }
+
 
     -- Comment
     use { 'numToStr/Comment.nvim', config = require('plugins.configs.comment')}
@@ -117,15 +127,22 @@ require('packer').startup(function()
     use { 'lewis6991/gitsigns.nvim', config = require('plugins.configs.gitsigns')}
 
     -- Linter
-    use { 'dense-analysis/ale', config = require('plugins.configs.ale') }
+    -- use { 'dense-analysis/ale', config = require('plugins.configs.ale') }
 
     -- Lark syntax
     use 'lark-parser/vim-lark-syntax'
 
+    -- Markdown
+    use({ 'iamcco/markdown-preview.nvim', run = 'cd app && npm install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, })
+
+    -- Find and Replace
+    use {'nvim-pack/nvim-spectre', config = require('plugins.configs.spectre')}
+
     -- Terminal
     use { 'akinsho/toggleterm.nvim', config = require('plugins.configs.toggleterm') }
 
-    -- Transparent Background
+
+    use 'chrisbra/Colorizer'
     use 'preservim/vimux'
     use 'tpope/vim-surround'
     use 'Asheq/close-buffers.vim'

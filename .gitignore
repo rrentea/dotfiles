@@ -1,2 +1,5 @@
 nvim/pack
+kitty/node_modules
+kitty/package-lock.json
+kitty/package.json
 .git

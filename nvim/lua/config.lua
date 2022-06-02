@@ -12,6 +12,7 @@ vim.cmd [[ set clipboard=unnamedplus ]]
 vim.cmd [[ set number ]]
 
 -- Color Scheme
+vim.g.catppuccin_flavour = 'mocha'
 vim.cmd [[ colorscheme catppuccin ]]
 
 
@@ -47,8 +48,9 @@ vim.opt.signcolumn = "yes"
 vim.opt.shortmess = "atToOFc" -- prompt message options
 vim.opt.laststatus = 3 -- Global status line
 vim.opt.autowriteall = true
-vim.opt.colorcolumn = "0"
+-- vim.opt.colorcolumn = "0"
 vim.opt.relativenumber = true
+vim.opt.winbar = "%m %f"
 
 
 -- Tab control

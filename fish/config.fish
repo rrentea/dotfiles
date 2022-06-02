@@ -1,11 +1,12 @@
 fish_vi_key_bindings
-set -g fish_greetings
 
 set -gx SHELL "$(which fish)"
 set -gx XDG_CONFIG_HOME "/home/rrentea/.config"
 set -gx EDITOR nvim
 set -gx LANG en_US.UTF-8
 set -U SXHKD_SHELL /usr/bin/bash
+
+set -U FZF_COMPLETE 1
 
 fish_add_path /home/rrentea/tools/lua-language-server/bin
 fish_add_path /home/rrentea/neovim/bin
@@ -14,25 +15,33 @@ fish_add_path /home/rrentea/.local/bin
 fish_add_path /home/rrentea/bin
 
 if status is-interactive
-    abbr --add --global l "exa -l --color=auto"
-    abbr --add --global la "exa -alh --color=auto"
+    alias l="lsd -l"
+    alias ll="lsd -l"
+    alias la="lsd -l -a"
+    alias ls="lsd"
 
-    abbr --add --global python python3
-    abbr --add --global pip pip3
+    alias r="ranger"
+    alias ran="ranger"
 
-    abbr --add --global vim nvim
-    abbr --add --global vi nvim
-    abbr --add --global v nvim
+    alias python=python3
+    alias pip=pip3
 
-    abbr --add --global ta "tmux attach"
-    abbr --add --global cl "wc -l"
-    abbr --add --global cf "source /home/rrentea/bin/cf"
+    alias vim=nvim
+    alias vi=nvim
+    alias v=nvim
 
-    abbr --add --global env "source env/bin/activate.fish"
-    abbr --add --global venv "source env/bin/activate.fish"
-    abbr --add --global wenv "source /home/rrentea/Work/work_env/bin/activate.fish"
+    alias ta="tmux attach"
+    alias cl="wc -l"
+    alias cf="source /home/rrentea/bin/cf"
 
-    abbr --add --global luamake "/home/rrentea/tools/lua-language-server/3rd/luamake/luamake"
+    alias env="source env/bin/activate.fish"
+    alias venv="source env/bin/activate.fish"
+    alias wenv="source /home/rrentea/Work/work_env/bin/activate.fish"
+
+    alias luamake="/home/rrentea/tools/lua-language-server/3rd/luamake/luamake"
+
+    bind -M insert \cp "source /home/rrentea/bin/cf"
 end
 
 zoxide init fish | source
+fish_add_path /home/rrentea/.spicetify

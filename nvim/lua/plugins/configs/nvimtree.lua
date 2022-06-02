@@ -27,8 +27,8 @@ nvimtree.setup {
     mappings = {
       custom_only = false,
       list = {
-        { key = "\\", action = "vsplit" },
-        { key = "-", action = "split" },
+        { key = "<leader>v", action = "vsplit" },
+        { key = "<leader>x", action = "split" },
       },
     },
   },

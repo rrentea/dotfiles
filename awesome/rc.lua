@@ -19,6 +19,8 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local battery_widget = require('awesome-battery_widget')
+local brightness_widget = require("brightness-widget")
+local brightness = brightness_widget:new({})
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -285,7 +287,7 @@ local mem = lain.widget.mem({
 
 mem.widget:buttons(awful.util.table.join(
     awful.button({}, 1, function()
-        awful.spawn(terminal)
+        awful.spawn(terminal .. ' btop')
     end)
 ))
 
@@ -321,6 +323,19 @@ vol.widget:buttons(awful.util.table.join(
     end)
 ))
 
+brightness.widget:buttons(awful.util.table.join(
+    awful.button({}, 1, function() -- left click
+        awful.spawn("brightness-controller")
+        vol.update()
+    end),
+    awful.button({}, 4, function() -- scroll up
+        brightness:up()
+    end),
+    awful.button({}, 5, function() -- scroll down
+        brightness:down()
+    end)
+))
+
 -- -- Create the battery widget:
 -- local my_battery_widget = battery_widget {
 --     screen = screen,
@@ -332,6 +347,7 @@ vol.widget:buttons(awful.util.table.join(
 --     widget.text = string.format('%3d', device.percentage) .. '%'
 -- end)
 local batteryarc_widget = require("themes.default.batteryarc-widget.batteryarc")
+
 
 local mpris = require("themes.default.mpris")
 local mpd = require("themes.default.mpdarc")
@@ -450,7 +466,13 @@ awful.screen.connect_for_each_screen(function(s)
         screen = s,
         filter = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
+        style    = {
+            shape_border_width = 1,
+            shape_border_color = '#777777',
+            shape  = gears.shape.rounded_bar,
+        },
     })
+
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -473,6 +495,8 @@ awful.screen.connect_for_each_screen(function(s)
                 mem,
                 spacer,
                 vol,
+                -- brightness.widget,
+                -- spacer,
                 batteryarc_widget({
                     -- font = beautiful.font,
                     main_color = beautiful.green,
