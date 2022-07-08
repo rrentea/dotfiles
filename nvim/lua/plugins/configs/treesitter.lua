@@ -87,3 +87,11 @@ treesitter.setup {
 }
 
 require("tsht").config.hint_keys = { "h", "j", "f", "d", "n", "v", "s", "l", "a" }
+
+local ok2, tree_surfer = pcall(require, 'syntax-tree-surfer')
+
+if not ok2 then
+    return
+end
+
+tree_surfer.setup()

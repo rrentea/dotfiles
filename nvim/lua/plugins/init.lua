@@ -35,6 +35,8 @@ require('packer').startup(function()
         config = require('plugins.configs.catppuccin')
     }
 
+    use {'fladson/vim-kitty'}
+
     -- TreeSitter
     use {
         'nvim-treesitter/nvim-treesitter',
@@ -42,7 +44,8 @@ require('packer').startup(function()
             'nvim-treesitter/nvim-treesitter-textobjects',
             'nvim-treesitter/playground',
             'mfussenegger/nvim-ts-hint-textobject',
-            'p00f/nvim-ts-rainbow'
+            'p00f/nvim-ts-rainbow',
+            'ziontee113/syntax-tree-surfer'
         },
         run = ':TSUpdate',
         config = require('plugins.configs.treesitter')
@@ -81,11 +84,10 @@ require('packer').startup(function()
         },
         config = require('plugins.configs.cmp')
     }
-    use {
-        'tzachar/cmp-tabnine',
-        run='./install.sh'
-    }
-
+    -- use {
+    --     'tzachar/cmp-tabnine',
+    --     run='./install.sh'
+    -- }
 
     -- Snippets
     use { 'L3MON4D3/LuaSnip', config = require('plugins.configs.luasnip') }
@@ -130,7 +132,7 @@ require('packer').startup(function()
     -- use { 'dense-analysis/ale', config = require('plugins.configs.ale') }
 
     -- Lark syntax
-    use 'lark-parser/vim-lark-syntax'
+    -- use 'lark-parser/vim-lark-syntax'
 
     -- Markdown
     use({ 'iamcco/markdown-preview.nvim', run = 'cd app && npm install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, })
@@ -143,9 +145,9 @@ require('packer').startup(function()
 
 
     use 'chrisbra/Colorizer'
-    use 'preservim/vimux'
+    -- use 'preservim/vimux'
     use 'tpope/vim-surround'
-    use 'Asheq/close-buffers.vim'
+    -- use 'Asheq/close-buffers.vim'
 
     use 'wesQ3/vim-windowswap'
 end)

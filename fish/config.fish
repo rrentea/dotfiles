@@ -39,8 +39,6 @@ if status is-interactive
     alias wenv="source /home/rrentea/Work/work_env/bin/activate.fish"
 
     alias luamake="/home/rrentea/tools/lua-language-server/3rd/luamake/luamake"
-
-    bind -M insert \cp "source /home/rrentea/bin/cf"
 end
 
 zoxide init fish | source

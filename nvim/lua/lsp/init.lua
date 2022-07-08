@@ -63,7 +63,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'F', function() vim.lsp.buf.format { async = true } end, { buffer = 0 })
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, { buffer = 0 })
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = 0 })
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = 0 })
+    -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = 0 })
     vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next, { buffer = 0 })
     vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev, { buffer = 0 })
 end
