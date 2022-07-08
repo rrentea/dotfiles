@@ -32,8 +32,11 @@ require('packer').startup(function()
     use {
         'catppuccin/nvim',
         as = 'catppuccin',
-        config = require('plugins.configs.catppuccin')
+        config = require('plugins.configs.catppuccin'),
+        run = ':CatppuccinCompile'
     }
+
+    use {'fladson/vim-kitty'}
 
     -- TreeSitter
     use {
@@ -42,7 +45,8 @@ require('packer').startup(function()
             'nvim-treesitter/nvim-treesitter-textobjects',
             'nvim-treesitter/playground',
             'mfussenegger/nvim-ts-hint-textobject',
-            'p00f/nvim-ts-rainbow'
+            'p00f/nvim-ts-rainbow',
+            'ziontee113/syntax-tree-surfer'
         },
         run = ':TSUpdate',
         config = require('plugins.configs.treesitter')
@@ -52,6 +56,12 @@ require('packer').startup(function()
     use {
         'williamboman/nvim-lsp-installer',
         'neovim/nvim-lspconfig',
+    }
+    use {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("lsp_lines").register_lsp_virtual_lines()
+        end,
     }
 
     use 'ryanoasis/vim-devicons'
@@ -81,11 +91,10 @@ require('packer').startup(function()
         },
         config = require('plugins.configs.cmp')
     }
-    use {
-        'tzachar/cmp-tabnine',
-        run='./install.sh'
-    }
-
+    -- use {
+    --     'tzachar/cmp-tabnine',
+    --     run='./install.sh'
+    -- }
 
     -- Snippets
     use { 'L3MON4D3/LuaSnip', config = require('plugins.configs.luasnip') }
@@ -130,7 +139,7 @@ require('packer').startup(function()
     -- use { 'dense-analysis/ale', config = require('plugins.configs.ale') }
 
     -- Lark syntax
-    use 'lark-parser/vim-lark-syntax'
+    -- use 'lark-parser/vim-lark-syntax'
 
     -- Markdown
     use({ 'iamcco/markdown-preview.nvim', run = 'cd app && npm install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, })
@@ -143,9 +152,11 @@ require('packer').startup(function()
 
 
     use 'chrisbra/Colorizer'
-    use 'preservim/vimux'
+    -- use 'preservim/vimux'
     use 'tpope/vim-surround'
-    use 'Asheq/close-buffers.vim'
+    -- use 'Asheq/close-buffers.vim'
 
     use 'wesQ3/vim-windowswap'
+    use 'dstein64/vim-startuptime'
+    use {'karb94/neoscroll.nvim', config = require('plugins.configs.neoscroll')}
 end)

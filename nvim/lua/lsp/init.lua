@@ -9,6 +9,7 @@ local servers = {
     'sumneko_lua',
     'tailwindcss',
     'texlab',
+    'rust-analyzer'
 }
 
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -18,13 +19,19 @@ function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
     return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
-local diagnostics_active = true
+local line_diagnostics_active = false
 vim.keymap.set('n', '<leader>dt', function()
-    diagnostics_active = not diagnostics_active
-    if diagnostics_active then
-        vim.diagnostic.show()
+    line_diagnostics_active = not line_diagnostics_active
+    if line_diagnostics_active then
+        vim.diagnostic.config {
+            virtual_text = false,
+            virtual_lines = true
+        }
     else
-        vim.diagnostic.hide()
+        vim.diagnostic.config {
+            virtual_text = true,
+            virtual_lines = false
+        }
     end
 end)
 
@@ -63,7 +70,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'F', function() vim.lsp.buf.format { async = true } end, { buffer = 0 })
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, { buffer = 0 })
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = 0 })
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = 0 })
+    -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = 0 })
     vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next, { buffer = 0 })
     vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev, { buffer = 0 })
 end
@@ -89,16 +96,26 @@ end
 
 -- Prefix diagnostic virtual text
 vim.diagnostic.config {
-    virtual_text = {
-        source = "always",
-        prefix = " ",
-        spacing = 6,
-    },
-    float = {
-        header = false,
-        source = "always",
-    },
-    signs = true,
-    underline = true,
-    update_in_insert = false,
+    -- virtual_text = {
+    --     source = "always",
+    --     prefix = " ",
+    --     spacing = 6,
+    -- },
+    -- float = {
+    --     header = false,
+    --     source = "always",
+    -- },
+    -- signs = true,
+    -- underline = true,
+    -- update_in_insert = false,
+    virtual_text = true,
+    virtual_lines = false
 }
+
+local ok, lsp_lines = pcall(require, "lsp_lines")
+
+if not ok then
+    return
+end
+
+lsp_lines.setup()

@@ -48,7 +48,7 @@ local switcher = require("awesome-switcher")
 local xrandr = require("xrandr")
 
 awful.util.spawn(autostart, false)
--- awful.util.spawn(picom, false)
+awful.util.spawn(picom, false)
 
 
 -- }}}
@@ -354,9 +354,9 @@ local mpd = require("themes.default.mpdarc")
 local spacer = wibox.widget.textbox(" ")
 
 local tag1 = " 1 "
-local tag2 = "  "
+local tag2 = " 2 "
 local tag3 = " 3 "
-local tag4 = "  "
+local tag4 = " 4 "
 local tag5 = " 5 "
 local tag6 = " 6 "
 local tag7 = " 7 "

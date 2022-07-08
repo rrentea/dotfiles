@@ -1,8 +1,6 @@
 fish_vi_key_bindings
 
-set -U fish_greeting ""
-
-set -gx SHELL (which fish)
+set -gx SHELL "$(which fish)"
 set -gx XDG_CONFIG_HOME "/home/rrentea/.config"
 set -gx EDITOR nvim
 set -gx LANG en_US.UTF-8
@@ -45,6 +43,3 @@ end
 
 zoxide init fish | source
 fish_add_path /home/rrentea/.spicetify
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/rrentea/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/home/rrentea/Downloads/google-cloud-sdk/path.fish.inc'; end

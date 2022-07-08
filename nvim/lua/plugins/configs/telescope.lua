@@ -57,6 +57,7 @@ telescope.setup {
             i = {
                 ["<Tab>"] = "move_selection_next",
                 ["<S-Tab>"] = "move_selection_previous",
+                ['<C-d>'] = require('telescope.actions').close
             },
             n = {
                 ["<Tab>"] = "move_selection_next",

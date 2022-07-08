@@ -8,6 +8,9 @@ vim.cmd [[ let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum" ]]
 vim.cmd [[ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum" ]]
 vim.cmd [[ set termguicolors ]]
 
+local ctp_feline = require('catppuccin.groups.integrations.feline')
+ctp_feline.setup({})
+
 feline.setup({
-    components = require('catppuccin.core.integrations.feline'),
+    components = ctp_feline.get(),
 })

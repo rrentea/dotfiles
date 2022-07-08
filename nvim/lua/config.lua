@@ -50,7 +50,9 @@ vim.opt.laststatus = 3 -- Global status line
 vim.opt.autowriteall = true
 -- vim.opt.colorcolumn = "0"
 vim.opt.relativenumber = true
-vim.opt.winbar = "%m %f"
+-- vim.opt.winbar = "%m %f"
+vim.wo.foldmethod = 'expr'
+vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 
 
 -- Tab control
@@ -73,6 +75,7 @@ vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 -- )
 -- vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
 
+vim.g.asynctasks_config_name = '.nvim/.tasks'
 vim.g.asyncrun_open = 6
 vim.g.asynctasks_term_pos = 'bottom'
 vim.g.asynctasks_term_rows = 20 -- set height for the horizontal terminal split
