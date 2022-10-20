@@ -131,7 +131,7 @@ vim.keymap.set('v', "<leader>/", "gc") -- Comments the selected lines
 vim.keymap.set('i', '<S-enter>', '<C-o>o')
 vim.keymap.set('v', '"', 's"<Esc>pa"')
 vim.keymap.set('v', "'", "s'<Esc>pa'")
-
+vim.keymap.set('t', "<Esc>", "<C-\\><C-n>")
 vim.keymap.set('n', "''", "ciw'<Esc>p") -- Quotes the current word with single quotes
 vim.keymap.set('n', '""', 'ciw"<Esc>p') -- Quotes the current word with double quotes
 -- vim.keymap.set("n", "<leader>ss", "<cmd>source ~/.config/nvim/init.lua<CR>")

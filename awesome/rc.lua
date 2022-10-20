@@ -32,6 +32,7 @@ local editor = os.getenv("EDITOR") or "nvim"
 local editor_cmd = terminal .. " -e " .. editor
 
 -- Shell programs
+local kitty_bin = os.getenv("HOME") .. "/.local/kitty.app/bin/kitty"
 local local_bin = os.getenv("HOME") .. "/.local/bin/"
 local home_bin = os.getenv("HOME") .. "/bin/"
 local rofi_bin = os.getenv("HOME") .. "/.config/rofi/bin/"
@@ -157,7 +158,7 @@ local networkmenu = {
 local termmenu = {
     { "st", "st" },
     { "wezterm", "wezterm" },
-    { "kitty", "kitty" },
+    { "kitty", kitty_bin },
     { "alacritty", "alacritty" },
 }
 
@@ -641,7 +642,7 @@ local globalkeys = gears.table.join(
     end, { description = "mpc next", group = "launcher" }),
 
     awful.key({ modkey }, "Return", function()
-        awful.spawn("kitty -e fish")
+        awful.spawn(kitty_bin .. " -e fish")
     end, { description = "open kitty with fish", group = "launcher" }),
 
     awful.key({}, "XF86AudioMute", function()

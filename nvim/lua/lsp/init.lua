@@ -78,7 +78,7 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local had_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if had_cmp_nvim_lsp then
-    capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 end
 
 local had_lspconfig = pcall(require, "lspconfig")

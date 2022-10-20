@@ -150,7 +150,6 @@ require('packer').startup(function()
     -- Terminal
     use { 'akinsho/toggleterm.nvim', config = require('plugins.configs.toggleterm') }
 
-
     use 'chrisbra/Colorizer'
     -- use 'preservim/vimux'
     use 'tpope/vim-surround'
@@ -159,4 +158,6 @@ require('packer').startup(function()
     use 'wesQ3/vim-windowswap'
     use 'dstein64/vim-startuptime'
     use {'karb94/neoscroll.nvim', config = require('plugins.configs.neoscroll')}
+
+    use {'lewis6991/impatient.nvim'}
 end)

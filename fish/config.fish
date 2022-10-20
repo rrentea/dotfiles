@@ -6,6 +6,7 @@ set -gx SHELL (which fish)
 set -gx XDG_CONFIG_HOME "/home/rrentea/.config"
 set -gx EDITOR nvim
 set -gx LANG en_US.UTF-8
+set -gx BETTER_EXCEPTIONS 1
 set -U SXHKD_SHELL /usr/bin/bash
 
 set -U FZF_COMPLETE 1
@@ -14,6 +15,7 @@ fish_add_path /home/rrentea/tools/lua-language-server/bin
 fish_add_path /home/rrentea/neovim/bin
 fish_add_path /usr/include/python3.9
 fish_add_path /home/rrentea/.local/bin
+fish_add_path /home/rrentea/.local/kitty.app/bin
 fish_add_path /home/rrentea/bin
 
 if status is-interactive

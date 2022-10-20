@@ -26,14 +26,14 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "python",
     callback = function()
-        vim.api.nvim_command('set cc=80')
+        vim.api.nvim_command("set cc=80")
     end
 })
 
 vim.api.nvim_create_autocmd("BufLeave", {
     pattern = "*launch.json",
     callback = function()
-        vim.api.nvim_command('w!')
+        vim.api.nvim_command("w!")
     end
 })
 
@@ -41,6 +41,13 @@ vim.api.nvim_create_autocmd("BufLeave", {
 vim.api.nvim_create_autocmd("TermOpen", {
     pattern = "*",
     callback = function ()
-        vim.api.nvim_command('setlocal nonumber norelativenumber')
+        vim.api.nvim_command("setlocal nonumber norelativenumber")
+    end
+})
+
+-- Start terminal mode when terminal buffer open.
+vim.api.nvim_create_autocmd("TermOpen", {
+    callback = function ()
+        vim.api.nvim_command("startinsert!")
     end
 })
