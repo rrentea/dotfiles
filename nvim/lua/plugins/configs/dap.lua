@@ -10,35 +10,29 @@ dap.adapters.python = {
     command = 'python';
     args = { '-m', 'debugpy.adapter' };
 }
+dap.adapters.cpp = {
+  type = 'server',
+  port = "13000",
+  host = "127.0.0.1",
+  executable = {
+    -- CHANGE THIS to your path!
+    command = '/home/rrentea/bin/extension/adapter/codelldb',
+    args = {"--port", "13000"},
 
-dap.adapters.cppdbg = {
-  id = 'cppdbg',
-  type = 'executable',
-  command = '/home/rrentea/bin/extension/debugAdapters/bin/OpenDebugAD7',
-  -- command = 'gdb',
-  options = {
-    detached = false
+    -- On windows you may have to uncomment this:
+    -- detached = false,
   }
 }
 
-dap.configurations.cpp = {
-    {
-        name = "Launch file",
-        type = "cppdbg",
-        request = "launch",
-        program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        end,
-        cwd = '${workspaceFolder}',
-        stopOnEntry = true,
-    }
-}
-dap.configurations.python = {
-    -- {
-    --   type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
-    --   request = 'launch';
-    -- },
-}
+-- dap.adapters.cppdbg = {
+--   id = 'cppdbg',
+--   type = 'executable',
+--   command = '/home/rrentea/bin/extension/debugAdapters/bin/OpenDebugAD7',
+--   -- command = 'gdb',
+--   options = {
+--     detached = false
+--   }
+-- }
 
 -- vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', numhl = '' })
 -- vim.fn.sign_define('DapBreakpointRejected', { text = '🟦', texthl = '', linehl = '', numhl = '' })

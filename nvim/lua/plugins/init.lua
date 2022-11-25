@@ -102,7 +102,7 @@ require('packer').startup(function()
 
     use { 'onsails/lspkind.nvim' }
 
-    use { 'jiangmiao/auto-pairs', config = require('plugins.configs.autopairs')}
+    use { 'windwp/nvim-autopairs', config = require('plugins.configs.autopairs')}
 
     --Diagnostics
     use {
@@ -147,6 +147,15 @@ require('packer').startup(function()
     -- Find and Replace
     use {'nvim-pack/nvim-spectre', config = require('plugins.configs.spectre')}
 
+    -- use({
+    --     'ray-x/navigator.lua',
+    --     requires = {
+    --         { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
+    --         { 'neovim/nvim-lspconfig' },
+    --     },
+    --     config = require('plugins.configs.navigator')
+    -- })
+
     -- Terminal
     use { 'akinsho/toggleterm.nvim', config = require('plugins.configs.toggleterm') }
 
@@ -160,4 +169,5 @@ require('packer').startup(function()
     use {'karb94/neoscroll.nvim', config = require('plugins.configs.neoscroll')}
 
     use {'lewis6991/impatient.nvim'}
+    use {'Vimjas/vim-python-pep8-indent'}
 end)

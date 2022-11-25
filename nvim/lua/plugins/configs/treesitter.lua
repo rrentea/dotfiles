@@ -20,9 +20,9 @@ treesitter.setup {
             node_decremental = "<s-tab>",
         },
     },
-    indentation = {
-        enable = true,
-    },
+    -- indent = {
+    --     enable = true,
+    -- },
     textobjects = {
         select = {
             enable = true,

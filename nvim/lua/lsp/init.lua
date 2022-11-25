@@ -58,6 +58,7 @@ end)
 local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    print('test')
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -65,11 +66,11 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = 0 })
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 })
     -- vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { buffer = 0 })
-    vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<CR>', { buffer = 0 })
+    -- vim.keymap.set('n', 'gr', '<cmd>Telescope lsp_references<CR>', { buffer = 0 })
     vim.keymap.set('n', 'gl', '<cmd>Telescope diagnostics<CR>', { buffer = 0 })
     vim.keymap.set('n', 'F', function() vim.lsp.buf.format { async = true } end, { buffer = 0 })
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, { buffer = 0 })
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { buffer = 0 })
+    vim.keymap.set({'n', 'v'}, '<leader>rn', vim.lsp.buf.rename, { buffer = 0 })
     -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { buffer = 0 })
     vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next, { buffer = 0 })
     vim.keymap.set('n', '<leader>p', vim.diagnostic.goto_prev, { buffer = 0 })

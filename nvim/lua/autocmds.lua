@@ -13,6 +13,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
     pattern = "*",
     callback = function()
         vim.cmd(":set norelativenumber")
+        vim.lsp.buf.clear_references()
     end
 })
 vim.api.nvim_create_autocmd("InsertLeave", {
@@ -26,7 +27,7 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "python",
     callback = function()
-        vim.api.nvim_command("set cc=80")
+        vim.api.nvim_command("set cc=88")
     end
 })
 
@@ -49,5 +50,25 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd("TermOpen", {
     callback = function ()
         vim.api.nvim_command("startinsert!")
+    end
+})
+
+-- Highlight the hover word
+vim.api.nvim_create_autocmd("CursorHold", {
+    pattern = "*",
+    callback = function ()
+        if not vim.bo.filetype == "json" then
+            vim.lsp.buf.document_highlight()
+        end
+    end
+})
+
+-- Clear highlighting
+vim.api.nvim_create_autocmd("CursorMoved", {
+    pattern = "*",
+    callback = function ()
+        if not vim.bo.filetype == "json" then
+            vim.lsp.buf.clear_references()
+        end
     end
 })

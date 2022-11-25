@@ -67,8 +67,8 @@ vim.opt.autowriteall = true
 -- vim.opt.colorcolumn = "0"
 vim.opt.relativenumber = true
 -- vim.opt.winbar = "%m %f"
-vim.wo.foldmethod = 'expr'
-vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.wo.foldmethod = 'expr'
+-- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
 
 
 -- Tab control
@@ -91,6 +91,7 @@ vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 -- )
 -- vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
 
+vim.g.python3_host_prog = os.getenv('HOME') .. '/Work/work_env/bin/python'
 vim.g.asynctasks_config_name = '.nvim/.tasks'
 vim.g.asyncrun_open = 6
 vim.g.asynctasks_term_pos = 'bottom'
