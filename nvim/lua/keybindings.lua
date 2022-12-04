@@ -27,8 +27,11 @@ vim.keymap.set('n', '<leader>f', ':NvimTreeFindFile<CR>')
 vim.keymap.set('n', '<c-p>', '<cmd>Telescope find_files hidden=true<cr>')
 vim.keymap.set('n', '<c-f>', '<cmd>Telescope live_grep<cr>')
 vim.keymap.set('n', '<c-s>', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
-vim.keymap.set('n', 'gr', function () require('telescope.builtin').lsp_references()
-end)
+
+ -- LSP
+vim.keymap.set('n', 'gr', require('nice-reference').references)
+vim.keymap.set('n', '<leader>ca', ':CodeActionMenu<CR>')
+-- vim.keymap.set('n', 'gD', function () require('telescope.builtin').lsp_definition() end)
 
 ----------------------------------
 ----------DEBUG BINDINGS----------
@@ -72,7 +75,7 @@ vim.keymap.set('n', '<leader>db', ':Telescope dap list_breakpoints<CR>')
 vim.keymap.set('n', '<leader>du', function() require('dapui').toggle(nil) end)
 
 -- LazyGit
-vim.keymap.set('n', "<leader>gg", ":LazyGit<cr>")
+vim.keymap.set('n', "<leader>g", ":LazyGit<cr>")
 
 -- Window management
 vim.keymap.set('n', "<leader>v", ":vs<cr>")
@@ -131,8 +134,8 @@ vim.keymap.set('n', "<leader>,", ":w!<cr>")
 vim.keymap.set('n', '<C-q>', ':! black %<CR><CR>', { silent = true})
 vim.keymap.set('i', '<C-q>', '<Esc>:! black %<CR><CR>i', { silent = true})
 vim.keymap.set('i', '<S-enter>', '<C-o>o')
-vim.keymap.set('v', '"', 's"<Esc>pa"')
-vim.keymap.set('v', "'", "s'<Esc>pa'")
+-- vim.keymap.set('v', '"', 's"<Esc>pa"')
+-- vim.keymap.set('v', "'", "s'<Esc>pa'")
 vim.keymap.set('t', "<Esc>", "<C-\\><C-n>")
 vim.keymap.set('n', "''", "ciw'<Esc>p") -- Quotes the current word with single quotes
 vim.keymap.set('n', '""', 'ciw"<Esc>p') -- Quotes the current word with double quotes

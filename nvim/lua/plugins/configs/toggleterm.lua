@@ -19,7 +19,7 @@ toggleterm.setup({
     start_in_insert = true,
     insert_mappings = true,
     persist_size = true,
-    direction = 'horizontal',
+    direction = 'tab',
     close_on_exit = true,
     shell = vim.o.shell,
     float_opts = {
@@ -33,13 +33,13 @@ toggleterm.setup({
 })
 
 function _G.set_terminal_keymaps()
-    local opts = { noremap = true }
+    -- local opts = { noremap = true }
     -- vim.keymap.set('t', '<esc>', '<c-\\><c-n>', opts)
     -- vim.keymap.set('t', 'jk', '<c-\\><c-n>', opts)
-    vim.keymap.set('t', '<a-h>', '<c-\\><c-n><c-w>h', opts)
-    vim.keymap.set('t', '<a-j>', '<c-\\><c-n><c-w>j', opts)
-    vim.keymap.set('t', '<a-k>', '<c-\\><c-n><c-w>k', opts)
-    vim.keymap.set('t', '<a-l>', '<c-\\><c-n><c-w>l', opts)
+    -- vim.keymap.set('t', '<a-h>', '<c-\\><c-n><c-w>h', opts)
+    -- vim.keymap.set('t', '<a-j>', '<c-\\><c-n><c-w>j', opts)
+    -- vim.keymap.set('t', '<a-k>', '<c-\\><c-n><c-w>k', opts)
+    -- vim.keymap.set('t', '<a-l>', '<c-\\><c-n><c-w>l', opts)
 end
 
 vim.api.nvim_create_autocmd('TermOpen', {

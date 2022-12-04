@@ -21,6 +21,8 @@ fish_add_path /home/rrentea/.local/kitty.app/bin
 fish_add_path /home/rrentea/bin
 fish_add_path /home/rrentea/.spicetify
 
+bind -M insert \cK accept-autosuggestion
+
 function cf
     set DIR (begin
             fd --type directory . $HOME

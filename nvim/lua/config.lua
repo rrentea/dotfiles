@@ -83,13 +83,7 @@ vim.opt.writebackup = false -- don't backup the file while editing
 vim.opt.swapfile = false -- don't create swap files for new buffers
 vim.opt.updatecount = 0 -- don't write swap files after some number of updates
 
--- Disable text diagnostics
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---     vim.lsp.diagnostic.on_publish_diagnostics, {
---         virtual_text = false
---     }
--- )
--- vim.lsp.handlers['textDocument/publishDiagnostics'] = function() end
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = require("telescope.builtin").lsp_references
 
 vim.g.python3_host_prog = os.getenv('HOME') .. '/Work/work_env/bin/python'
 vim.g.asynctasks_config_name = '.nvim/.tasks'
