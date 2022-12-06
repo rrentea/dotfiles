@@ -24,8 +24,8 @@ vim.keymap.set('n', '<leader>f', ':NvimTreeFindFile<CR>')
 
 
 -- Telescope
-vim.keymap.set('n', '<c-p>', '<cmd>Telescope find_files hidden=true<cr>')
-vim.keymap.set('n', '<c-f>', '<cmd>Telescope live_grep<cr>')
+vim.keymap.set('n', '<c-f>', '<cmd>Telescope find_files hidden=true<cr>')
+vim.keymap.set('n', '<c-g>', '<cmd>Telescope live_grep<cr>')
 vim.keymap.set('n', '<c-s>', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
 
  -- LSP

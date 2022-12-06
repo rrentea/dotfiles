@@ -53,6 +53,15 @@ require('packer').startup(function()
         'williamboman/nvim-lsp-installer',
         'neovim/nvim-lspconfig',
     }
+
+    use {
+        "ThePrimeagen/refactoring.nvim",
+        requires = {
+            {"nvim-lua/plenary.nvim"},
+            {"nvim-treesitter/nvim-treesitter"}
+        }
+    }
+
     use {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         config = function()
@@ -184,6 +193,7 @@ require('plugins.configs.autopairs')
 require('plugins.configs.catppuccin')
 require('plugins.configs.treesitter')
 require('plugins.configs.telescope')
+require('plugins.configs.refactoring')
 require('plugins.configs.cmp')
 require('plugins.configs.luasnip')
 require('plugins.configs.trouble')
