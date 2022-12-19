@@ -18,6 +18,20 @@ vim.keymap.set('n', '<c-a-j>', '<c-w>+')
 vim.keymap.set('n', '<c-a-k>', '<c-w>-')
 vim.keymap.set('n', '<c-a-l>', '<c-w>>')
 
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+-- don't lose copied text when pasting over something else
+vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+vim.keymap.set("n", "<C-p>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
 -- Nvim Tree
 vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>')
 vim.keymap.set('n', '<leader>f', ':NvimTreeFindFile<CR>')
@@ -28,8 +42,7 @@ vim.keymap.set('n', '<c-f>', '<cmd>Telescope find_files hidden=true<cr>')
 vim.keymap.set('n', '<c-g>', '<cmd>Telescope live_grep<cr>')
 vim.keymap.set('n', '<c-s>', '<cmd>Telescope current_buffer_fuzzy_find<cr>')
 
- -- LSP
-vim.keymap.set('n', 'gr', require('nice-reference').references)
+-- LSP
 vim.keymap.set('n', '<leader>ca', ':CodeActionMenu<CR>')
 -- vim.keymap.set('n', 'gD', function () require('telescope.builtin').lsp_definition() end)
 
@@ -45,7 +58,7 @@ vim.keymap.set('n', '<leader>dh', function() dap.toggle_breakpoint() end)
 vim.keymap.set('n', '<leader>ds', function()
     dap.configurations.python = {} -- Clearing any current configuration
     dap.configurations.cpp = {} -- Clearing any current configuration
-    require('dap.ext.vscode').load_launchjs(os.getenv("PWD") .. "/.nvim/launch.json", { cppdbg = {'c', 'cpp'} })
+    require('dap.ext.vscode').load_launchjs(os.getenv("PWD") .. "/.nvim/launch.json", { cppdbg = { 'c', 'cpp' } })
     dap.continue()
     require("nvim-tree.view").close()
 end)
@@ -78,8 +91,6 @@ vim.keymap.set('n', '<leader>du', function() require('dapui').toggle(nil) end)
 vim.keymap.set('n', "<leader>g", ":LazyGit<cr>")
 
 -- Window management
-vim.keymap.set('n', "<leader>v", ":vs<cr>")
-vim.keymap.set('n', "<leader>x", ":sp<cr>")
 vim.keymap.set('n', "<a-q>", ":q<cr>")
 vim.keymap.set('n', '<leader>Q', ':qa<CR>')
 
@@ -89,31 +100,31 @@ vim.keymap.set('n', '<leader>sh', ':call WindowSwap#MarkWindowSwap()<CR><c-w>h:c
 vim.keymap.set('n', '<leader>sl', ':call WindowSwap#MarkWindowSwap()<CR><c-w>l:call WindowSwap#DoWindowSwap()<CR>')
 
 -- Treesitter selection
-vim.cmd[[omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>]]
-vim.cmd[[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]
+vim.cmd [[omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>]]
+vim.cmd [[vnoremap <silent> m :lua require('tsht').nodes()<CR>]]
 
 -- Syntax tree surfer
 
 -- Normal Mode Swapping:
 -- Swap The Master Node relative to the cursor with it's siblings, Dot Repeatable
-vim.keymap.set('n', '<leader>vk', function ()
+vim.keymap.set('n', '<leader>vk', function()
     vim.opt.opfunc = 'v:lua.STSSwapUpNormal_Dot'
     return "g@l"
 end, { silent = true, expr = true })
 
-vim.keymap.set('n', '<leader>vj', function ()
+vim.keymap.set('n', '<leader>vj', function()
     vim.opt.opfunc = 'v:lua.STSSwapDownNormal_Dot'
     return "g@l"
 end, { silent = true, expr = true })
 
 -- Swap Current Node at the Cursor with it's siblings, Dot Repeatable
 vim.keymap.set('n', '<leader>vl', function()
-	vim.opt.opfunc = 'v:lua.STSSwapCurrentNodeNextNormal_Dot'
-	return 'g@l'
+    vim.opt.opfunc = 'v:lua.STSSwapCurrentNodeNextNormal_Dot'
+    return 'g@l'
 end, { silent = true, expr = true })
 vim.keymap.set('n', '<leader>vh', function()
-	vim.opt.opfunc = 'v:lua.STSSwapCurrentNodePrevNormal_Dot'
-	return 'g@l'
+    vim.opt.opfunc = 'v:lua.STSSwapCurrentNodePrevNormal_Dot'
+    return 'g@l'
 end, { silent = true, expr = true })
 
 -- Running and building code
@@ -126,13 +137,13 @@ vim.keymap.set('v', '<S-k>', ":m '<-2<CR>gv=gv")
 
 -- Spectre
 vim.keymap.set('n', '<leader>ss', function() require('spectre').open() end)
-vim.keymap.set('n', '<leader>sw', function() require('spectre').open_visual({selected_word=true}) end)
+vim.keymap.set('n', '<leader>sw', function() require('spectre').open_visual({ selected_word = true }) end)
 
 -- Miscellanious
 vim.keymap.set('i', "jk", "<Esc>")
 vim.keymap.set('n', "<leader>,", ":w!<cr>")
-vim.keymap.set('n', '<C-q>', ':! black %<CR><CR>', { silent = true})
-vim.keymap.set('i', '<C-q>', '<Esc>:! black %<CR><CR>i', { silent = true})
+vim.keymap.set('n', '<C-q>', ':! black %<CR><CR>', { silent = true })
+vim.keymap.set('i', '<C-q>', '<Esc>:! black %<CR><CR>i', { silent = true })
 vim.keymap.set('i', '<S-enter>', '<C-o>o')
 -- vim.keymap.set('v', '"', 's"<Esc>pa"')
 -- vim.keymap.set('v', "'", "s'<Esc>pa'")

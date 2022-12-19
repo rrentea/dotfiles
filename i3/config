@@ -182,9 +182,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 bindsym $mod+r exec ~/.config/rofi/bin/rofi_launcher
 bindsym $mod+w exec ~/.config/rofi/bin/rofi_window
-bindsym $mod+p exec ~/.config/rofi/bin/rofi_powermenu
+bindsym $mod+p exec ~/.config/rofi/powermenu/type-1/powermenu.sh
 bindsym $mod+e exec firefox
 bindsym $mod+Mod1+l exec betterlockscreen -l 
+bindsym $mod+Shift+s exec flameshot gui
 
 #border
 for_window [class=".*"] border pixel 2

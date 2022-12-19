@@ -4,6 +4,7 @@ vim.opt.softtabstop = 4
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.autoread = true
+vim.opt.sessionoptions:append("localoptions")
 
 vim.cmd [[ set nofoldenable ]]
 vim.cmd [[ set clipboard=unnamedplus ]]

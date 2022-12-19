@@ -4,6 +4,7 @@ set -U fish_greeting ""
 
 set -gx SHELL (which fish)
 set -gx XDG_CONFIG_HOME "/home/rrentea/.config"
+set -gx WORK_DIR "/work/bd"
 set -gx EDITOR nvim
 set -gx LANG en_US.UTF-8
 set -gx BETTER_EXCEPTIONS 1
@@ -22,15 +23,9 @@ fish_add_path /home/rrentea/bin
 fish_add_path /home/rrentea/.spicetify
 
 bind -M insert \cK accept-autosuggestion
+bind -M insert \cp tmux neww tmux-sessionizer
 
-function cf
-    set DIR (begin
-            fd --type directory . $HOME
-            fd --type directory . '/work/bd'
-        end | fzf)
 
-    cd $DIR
-end
 
 if status is-interactive
     alias l="lsd -l"

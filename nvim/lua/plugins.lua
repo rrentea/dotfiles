@@ -48,11 +48,33 @@ require('packer').startup(function()
         run = ':TSUpdate'
     }
 
-    -- LSP
-    use {
-        'williamboman/nvim-lsp-installer',
-        'neovim/nvim-lspconfig',
-    }
+  use('theprimeagen/harpoon')
+  use('mbbill/undotree')
+
+  -- LSP
+  use {
+	  'VonHeikemen/lsp-zero.nvim',
+	  requires = {
+		  -- LSP Support
+		  {'neovim/nvim-lspconfig'},
+		  {'williamboman/mason.nvim'},
+		  {'williamboman/mason-lspconfig.nvim'},
+
+		  -- Autocompletion
+          'hrsh7th/nvim-cmp',
+          'hrsh7th/cmp-nvim-lsp',
+          'hrsh7th/cmp-nvim-lua',
+          'hrsh7th/cmp-buffer',
+          'hrsh7th/cmp-path',
+          'hrsh7th/cmp-cmdline',
+          'hrsh7th/cmp-nvim-lsp-signature-help',
+          'saadparwaiz1/cmp_luasnip',
+
+		  -- Snippets
+		  {'L3MON4D3/LuaSnip'},
+		  {'rafamadriz/friendly-snippets'},
+	  }
+  }
 
     use {
         "ThePrimeagen/refactoring.nvim",
@@ -80,27 +102,6 @@ require('packer').startup(function()
         }
     })
     use 'nvim-lua/popup.nvim'
-
-    -- Completion
-    use {
-        'hrsh7th/nvim-cmp',
-        requires = {
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-nvim-lua',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-cmdline',
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-            'saadparwaiz1/cmp_luasnip',
-        }
-    }
-    -- use {
-    --     'tzachar/cmp-tabnine',
-    --     run='./install.sh'
-    -- }
-
-    -- Snippets
-    use { 'L3MON4D3/LuaSnip' }
     use 'rafamadriz/friendly-snippets'
 
     use { 'onsails/lspkind.nvim' }
@@ -185,23 +186,5 @@ require('packer').startup(function()
             { 'rmagatti/goto-preview', config = require('goto-preview').setup({references = {}})}, --optional
         }
     }
+    use {'simrat39/rust-tools.nvim'}
 end)
-
-require('plugins.configs.alpha')
-require('plugins.configs.ale')
-require('plugins.configs.autopairs')
-require('plugins.configs.catppuccin')
-require('plugins.configs.treesitter')
-require('plugins.configs.telescope')
-require('plugins.configs.refactoring')
-require('plugins.configs.cmp')
-require('plugins.configs.luasnip')
-require('plugins.configs.trouble')
-require('plugins.configs.comment')
-require('plugins.configs.feline')
-require('plugins.configs.gitsigns')
-require('plugins.configs.spectre')
-require('plugins.configs.toggleterm')
-require('plugins.configs.neoscroll')
-require('plugins.configs.nvimtree')
-require('plugins.configs.nice-reference')
