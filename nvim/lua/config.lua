@@ -5,6 +5,8 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.autoread = true
 vim.opt.sessionoptions:append("localoptions")
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
 
 vim.cmd [[ set nofoldenable ]]
 vim.cmd [[ set clipboard=unnamedplus ]]
@@ -13,8 +15,10 @@ vim.cmd [[ set clipboard=unnamedplus ]]
 vim.cmd [[ set number ]]
 
 -- Color Scheme
-vim.g.catppuccin_flavour = 'mocha'
-vim.cmd [[ colorscheme catppuccin ]]
+-- vim.g.catppuccin_flavour = 'mocha'
+-- vim.cmd [[ colorscheme catppuccin ]]
+
+
 
 -- Disable standard plugins
 vim.g.loaded = 1
@@ -70,6 +74,7 @@ vim.opt.relativenumber = true
 -- vim.opt.winbar = "%m %f"
 -- vim.wo.foldmethod = 'expr'
 -- vim.wo.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.updatetime = 500
 
 
 -- Tab control
@@ -94,3 +99,5 @@ vim.g.asynctasks_term_rows = 20 -- set height for the horizontal terminal split
 vim.g.asynctasks_term_cols = 80 -- set width for vertical terminal split
 
 vim.g.windowswap_map_keys = 0
+vim.g.tmux_navigator_no_mappings = 1
+vim.g.cursorhold_updatetime = 1000

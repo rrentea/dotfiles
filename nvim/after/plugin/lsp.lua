@@ -3,6 +3,12 @@ local lsp = require('lsp-zero')
 lsp.preset("recommended")
 
 
+local ok, rt = pcall(require, "rust-tools")
+
+if not ok then
+    return
+end
+
 -- local lsp_installer = require('nvim-lsp-installer')
 -- lsp_installer.on_server_ready(function (server)
 --     server:setup {}
@@ -14,14 +20,16 @@ lsp.ensure_installed({
     'html',
     'jsonls',
     'pyright',
-    'sumneko_lua',
+    'lua_ls',
     'tailwindcss',
     'texlab',
     'rust_analyzer',
     'taplo'
 })
 
-lsp.configure('sumneko_lua', {
+lsp.skip_server_setup({ 'rust_analyzer' })
+
+lsp.configure('lua_ls', {
     settings = {
         Lua = {
             runtime = {
@@ -68,7 +76,40 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 })
 
 lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end,
+    },
+    completion = {
+        completeopt = 'menu,menuone,noinsert' -- Auto highlight the first row
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp_mappings,
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_signature_help' },
+        { name = 'luasnip' },
+        { name = 'cmp_tabnine' },
+    }, {
+        { name = 'buffer' },
+    }),
+
+    formatting = {
+        format = require('lspkind').cmp_format {
+            with_text = true,
+            menu = {
+                buffer = "[buf]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[api]",
+                cmp_tabnine = "[tabnine]",
+                luasnip = "[snip]"
+            }
+        }
+    }
 })
 
 lsp.set_preferences({
@@ -112,7 +153,6 @@ lsp.on_attach(function(client, bufnr)
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
 
-
     nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
@@ -120,8 +160,8 @@ lsp.on_attach(function(client, bufnr)
     nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
     nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
     nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+    nmap('<leader>sd', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+    nmap('<leader>sw', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -143,6 +183,25 @@ lsp.on_attach(function(client, bufnr)
             vim.lsp.buf.formatting()
         end
     end, { desc = 'Format current buffer with LSP' })
+
+    if client.server_capabilities.documentHighlightProvider then
+        local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", {})
+
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            buffer = bufnr,
+            group = group,
+            callback = function()
+                vim.lsp.buf.document_highlight()
+            end,
+        })
+        vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+            buffer = bufnr,
+            group = group,
+            callback = function()
+                vim.lsp.buf.clear_references()
+            end,
+        })
+    end
 end)
 --
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()

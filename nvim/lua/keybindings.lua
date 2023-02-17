@@ -3,7 +3,7 @@ g.mapleader = ","
 
 vim.keymap.set('n', '<C-s>', ':w<CR>')
 vim.keymap.set('i', '<C-s>', '<ESC>:w<CR>a')
-vim.keymap.set('n', "<leader>,", ":w<cr>")
+vim.keymap.set('n', "<leader>,", ":wa<cr>")
 
 vim.keymap.set('n', "<enter>", "o<Esc>")
 vim.keymap.set('n', "<S-enter>", "O<Esc>")
@@ -12,6 +12,9 @@ vim.keymap.set('n', '<a-j>', function() require('winmove').winmove('j') end)
 vim.keymap.set('n', '<a-h>', function() require('winmove').winmove('h') end)
 vim.keymap.set('n', '<a-k>', function() require('winmove').winmove('k') end)
 vim.keymap.set('n', '<a-l>', function() require('winmove').winmove('l') end)
+
+vim.keymap.set('n', '<c-h>', ":<C-U>TmuxNavigateLeft<cr>")
+vim.keymap.set('n', '<c-l>', ":<C-U>TmuxNavigateRight<cr>")
 
 vim.keymap.set('n', '<c-a-h>', '<c-w><')
 vim.keymap.set('n', '<c-a-j>', '<c-w>+')
@@ -36,6 +39,8 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>')
 vim.keymap.set('n', '<leader>f', ':NvimTreeFindFile<CR>')
 
+-- Undotree
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 -- Telescope
 vim.keymap.set('n', '<c-f>', '<cmd>Telescope find_files hidden=true<cr>')

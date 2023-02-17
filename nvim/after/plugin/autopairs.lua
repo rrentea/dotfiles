@@ -4,6 +4,10 @@ if not ok then
     return
 end
 
+local Rule = require("nvim-autopairs.rule")
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+local cmp = require("cmp")
+
 autopairs.setup({
     disable_filetype = { "TelescopePrompt" },
     disable_in_macro = false,  -- disable when recording or executing a macro
@@ -29,3 +33,16 @@ autopairs.setup({
       highlight_grey='Comment'
     },
 })
+
+local ts_cond = require("nvim-autopairs.ts-conds")
+autopairs.add_rules({
+    Rule("%", "%", "lua")
+        :with_pair(ts_cond.is_ts_node({"string", "comment"})),
+    Rule("$", "$", "lua")
+        :with_pair(ts_cond.is_ts_node({"function"})),
+})
+
+cmp.event:on(
+    "confirm_done",
+    cmp_autopairs.on_confirm_done()
+)

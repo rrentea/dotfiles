@@ -5,6 +5,8 @@ if not ok1 or not ok2 then
     return
 end
 
+dap.set_log_level("DEBUG")
+
 dap.adapters.python = {
     type = 'executable';
     command = 'python';

@@ -33,6 +33,11 @@ require('packer').startup(function()
         run = ':CatppuccinCompile'
     }
 
+    use({
+        'rose-pine/neovim',
+        as = 'rose-pine',
+    })
+
     use {'fladson/vim-kitty'}
 
     -- TreeSitter
@@ -187,4 +192,6 @@ require('packer').startup(function()
         }
     }
     use {'simrat39/rust-tools.nvim'}
+
+    use {'christoomey/vim-tmux-navigator'}
 end)

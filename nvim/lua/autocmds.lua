@@ -23,9 +23,9 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     end
 })
 
--- Setting the color column only for python files
+-- Setting the color column
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "python",
+    pattern = {"python", "rust"},
     callback = function()
         vim.api.nvim_command("set cc=88")
     end
@@ -53,22 +53,13 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end
 })
 
--- Highlight the hover word
-vim.api.nvim_create_autocmd("CursorHold", {
-    pattern = "*",
-    callback = function ()
-        if not vim.bo.filetype == "json" then
-            vim.lsp.buf.document_highlight()
-        end
+-- Remember the last save location
+vim.api.nvim_create_autocmd('BufReadPost', {
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
-})
-
--- Clear highlighting
-vim.api.nvim_create_autocmd("CursorMoved", {
-    pattern = "*",
-    callback = function ()
-        if not vim.bo.filetype == "json" then
-            vim.lsp.buf.clear_references()
-        end
-    end
+  end,
 })
