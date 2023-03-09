@@ -35,9 +35,6 @@ vim.keymap.set("n", "<C-p>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- Nvim Tree
-vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>')
-vim.keymap.set('n', '<leader>f', ':NvimTreeFindFile<CR>')
 
 -- Undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)

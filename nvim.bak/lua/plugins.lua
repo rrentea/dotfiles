@@ -20,9 +20,12 @@ require('packer').startup(function()
         requires = { 'kyazdani42/nvim-web-devicons' }
     }
     use {
-        'kyazdani42/nvim-tree.lua',
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
         requires = {
-            'kyazdani42/nvim-web-devicons',
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
         }
     }
 
@@ -38,7 +41,7 @@ require('packer').startup(function()
         as = 'rose-pine',
     })
 
-    use {'fladson/vim-kitty'}
+    use { 'fladson/vim-kitty' }
 
     -- TreeSitter
     use {
@@ -53,39 +56,39 @@ require('packer').startup(function()
         run = ':TSUpdate'
     }
 
-  use('theprimeagen/harpoon')
-  use('mbbill/undotree')
+    use('theprimeagen/harpoon')
+    use('mbbill/undotree')
 
-  -- LSP
-  use {
-	  'VonHeikemen/lsp-zero.nvim',
-	  requires = {
-		  -- LSP Support
-		  {'neovim/nvim-lspconfig'},
-		  {'williamboman/mason.nvim'},
-		  {'williamboman/mason-lspconfig.nvim'},
+    -- LSP
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        requires = {
+            -- LSP Support
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
-		  -- Autocompletion
-          'hrsh7th/nvim-cmp',
-          'hrsh7th/cmp-nvim-lsp',
-          'hrsh7th/cmp-nvim-lua',
-          'hrsh7th/cmp-buffer',
-          'hrsh7th/cmp-path',
-          'hrsh7th/cmp-cmdline',
-          'hrsh7th/cmp-nvim-lsp-signature-help',
-          'saadparwaiz1/cmp_luasnip',
+            -- Autocompletion
+            'hrsh7th/nvim-cmp',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-nvim-lua',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/cmp-nvim-lsp-signature-help',
+            'saadparwaiz1/cmp_luasnip',
 
-		  -- Snippets
-		  {'L3MON4D3/LuaSnip'},
-		  {'rafamadriz/friendly-snippets'},
-	  }
-  }
+            -- Snippets
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
+        }
+    }
 
     use {
         "ThePrimeagen/refactoring.nvim",
         requires = {
-            {"nvim-lua/plenary.nvim"},
-            {"nvim-treesitter/nvim-treesitter"}
+            { "nvim-lua/plenary.nvim" },
+            { "nvim-treesitter/nvim-treesitter" }
         }
     }
 
@@ -111,7 +114,7 @@ require('packer').startup(function()
 
     use { 'onsails/lspkind.nvim' }
 
-    use { 'windwp/nvim-autopairs'}
+    use { 'windwp/nvim-autopairs' }
 
     --Diagnostics
     use {
@@ -121,7 +124,7 @@ require('packer').startup(function()
 
 
     -- Comment
-    use { 'numToStr/Comment.nvim'}
+    use { 'numToStr/Comment.nvim' }
 
 
     -- Debugger
@@ -139,8 +142,8 @@ require('packer').startup(function()
     use 'skywind3000/asyncrun.vim'
 
     -- Status line
-    use { 'feline-nvim/feline.nvim'}
-    use { 'lewis6991/gitsigns.nvim'}
+    use { 'feline-nvim/feline.nvim' }
+    use { 'lewis6991/gitsigns.nvim' }
 
     -- Linter
     -- use { 'dense-analysis/ale', config = require('plugins.configs.ale') }
@@ -149,10 +152,11 @@ require('packer').startup(function()
     -- use 'lark-parser/vim-lark-syntax'
 
     -- Markdown
-    use({ 'iamcco/markdown-preview.nvim', run = 'cd app && npm install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, })
+    use({ 'iamcco/markdown-preview.nvim', run = 'cd app && npm install',
+        setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' }, })
 
     -- Find and Replace
-    use {'nvim-pack/nvim-spectre'}
+    use { 'nvim-pack/nvim-spectre' }
 
     -- use({
     --     'ray-x/navigator.lua',
@@ -164,7 +168,7 @@ require('packer').startup(function()
     -- })
 
     -- Terminal
-    use { 'akinsho/toggleterm.nvim'}
+    use { 'akinsho/toggleterm.nvim' }
 
     use 'chrisbra/Colorizer'
     -- use 'preservim/vimux'
@@ -173,25 +177,36 @@ require('packer').startup(function()
 
     use 'wesQ3/vim-windowswap'
     use 'dstein64/vim-startuptime'
-    use {'karb94/neoscroll.nvim'}
+    use { 'karb94/neoscroll.nvim' }
 
-    use ({
+    use({
         'weilbith/nvim-code-action-menu',
         opt = false,
         cmd = 'CodeActionMenu',
     })
 
-    use {'lewis6991/impatient.nvim'}
-    use {'Vimjas/vim-python-pep8-indent'}
-    use {'norcalli/nvim-colorizer.lua', config = require('colorizer').setup()}
+    use { 'lewis6991/impatient.nvim' }
+    use { 'Vimjas/vim-python-pep8-indent' }
+    use { 'norcalli/nvim-colorizer.lua', config = require('colorizer').setup() }
     use {
         'wiliamks/nice-reference.nvim',
         requires = {
             'kyazdani42/nvim-web-devicons', --optional
-            { 'rmagatti/goto-preview', config = require('goto-preview').setup({references = {}})}, --optional
+            { 'rmagatti/goto-preview', config = require('goto-preview').setup({ references = {} }) }, --optional
         }
     }
-    use {'simrat39/rust-tools.nvim'}
+    use { 'simrat39/rust-tools.nvim' }
 
-    use {'christoomey/vim-tmux-navigator'}
+    use { 'christoomey/vim-tmux-navigator' }
+    use {
+        "jcdickinson/codeium.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            "hrsh7th/nvim-cmp",
+        },
+        config = function()
+            require("codeium").setup({})
+        end
+    }
 end)

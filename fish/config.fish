@@ -28,10 +28,10 @@ bind -M insert \cp tmux neww tmux-sessionizer
 
 
 if status is-interactive
-    alias l="lsd -l"
-    alias ll="lsd -l"
-    alias la="lsd -l -a"
-    alias ls="lsd"
+    alias l="exa -l -h"
+    alias ll="exa -l -h"
+    alias la="exa -l -a -h"
+    alias ls="exa"
 
     alias r="ranger"
     alias ran="ranger"

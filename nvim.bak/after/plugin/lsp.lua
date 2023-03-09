@@ -72,7 +72,23 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-k>'] = cmp.mapping.confirm({ select = true }),
-    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-c>"] = cmp.mapping({
+        i = function()
+          if cmp.visible() then
+            cmp.abort()
+          else
+            cmp.complete()
+          end
+        end,
+        c = function()
+          if cmp.visible() then
+            cmp.close()
+          else
+            cmp.complete()
+          end
+        end,
+      }),
+    ["<Tab>"] = cmp.config.disable,
 })
 
 lsp.setup_nvim_cmp({
@@ -91,9 +107,9 @@ lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = 'codeium' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'luasnip' },
-        { name = 'cmp_tabnine' },
     }, {
         { name = 'buffer' },
     }),
@@ -184,24 +200,24 @@ lsp.on_attach(function(client, bufnr)
         end
     end, { desc = 'Format current buffer with LSP' })
 
-    if client.server_capabilities.documentHighlightProvider then
-        local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", {})
-
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            buffer = bufnr,
-            group = group,
-            callback = function()
-                vim.lsp.buf.document_highlight()
-            end,
-        })
-        vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-            buffer = bufnr,
-            group = group,
-            callback = function()
-                vim.lsp.buf.clear_references()
-            end,
-        })
-    end
+    -- if client.server_capabilities.documentHighlightProvider then
+    --     local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", {})
+    --
+    --     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    --         buffer = bufnr,
+    --         group = group,
+    --         callback = function()
+    --             vim.lsp.buf.document_highlight()
+    --         end,
+    --     })
+    --     vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+    --         buffer = bufnr,
+    --         group = group,
+    --         callback = function()
+    --             vim.lsp.buf.clear_references()
+    --         end,
+    --     })
+    -- end
 end)
 --
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()

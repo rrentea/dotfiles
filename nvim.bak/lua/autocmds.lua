@@ -9,19 +9,19 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Toggle relative line numbers in normal mode and absolute line numbers in insert mode
-vim.api.nvim_create_autocmd("InsertEnter", {
-    pattern = "*",
-    callback = function()
-        vim.cmd(":set norelativenumber")
-        vim.lsp.buf.clear_references()
-    end
-})
-vim.api.nvim_create_autocmd("InsertLeave", {
-    pattern = "*",
-    callback = function()
-        vim.cmd(":set relativenumber")
-    end
-})
+-- vim.api.nvim_create_autocmd("InsertEnter", {
+--     pattern = "*",
+--     callback = function()
+--         vim.cmd(":set norelativenumber")
+--         vim.lsp.buf.clear_references()
+--     end
+-- })
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+--     pattern = "*",
+--     callback = function()
+--         vim.cmd(":set relativenumber")
+--     end
+-- })
 
 -- Setting the color column
 vim.api.nvim_create_autocmd("FileType", {

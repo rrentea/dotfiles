@@ -144,6 +144,12 @@ _G.packer_plugins = {
     path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["codeium.nvim"] = {
+    config = { "\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\fcodeium\frequire\0" },
+    loaded = true,
+    path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/codeium.nvim",
+    url = "https://github.com/jcdickinson/codeium.nvim"
+  },
   ["feline.nvim"] = {
     loaded = true,
     path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/feline.nvim",
@@ -212,6 +218,11 @@ _G.packer_plugins = {
     path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["neo-tree.nvim"] = {
+    loaded = true,
+    path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/neo-tree.nvim",
+    url = "https://github.com/nvim-neo-tree/neo-tree.nvim"
+  },
   ["neoscroll.nvim"] = {
     loaded = true,
     path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
@@ -221,6 +232,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/nice-reference.nvim",
     url = "https://github.com/wiliamks/nice-reference.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = true,
@@ -269,11 +285,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/nvim-spectre",
     url = "https://github.com/nvim-pack/nvim-spectre"
-  },
-  ["nvim-tree.lua"] = {
-    loaded = true,
-    path = "/home/rrentea/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
-    url = "https://github.com/kyazdani42/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
@@ -421,6 +432,10 @@ time([[Setup for markdown-preview.nvim]], false)
 time([[Config for lsp_lines.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14lsp_lines\frequire\0", "config", "lsp_lines.nvim")
 time([[Config for lsp_lines.nvim]], false)
+-- Config for: codeium.nvim
+time([[Config for codeium.nvim]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\fcodeium\frequire\0", "config", "codeium.nvim")
+time([[Config for codeium.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
