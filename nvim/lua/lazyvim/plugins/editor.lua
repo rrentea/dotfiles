@@ -95,12 +95,12 @@ return {
 			-- search
 			-- { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
 			{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
-			{ "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-			{ "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+			{ "<leader>sc", "<cmd>Telescope commands<cr>", desc = "Commands" },
+			{ "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Command History" },
 			{ "<leader>sd", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
 			{ "<leader>sg", Util.telescope("live_grep"), desc = "Grep (root dir)" },
 			{ "<leader>sG", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd)" },
-			-- { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+			-- { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "help Pages" },
 			-- { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
 			{ "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
 			-- { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
@@ -226,6 +226,41 @@ return {
                 map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
                 map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
 			end,
+		},
+	},
+
+    -- Diagnostics
+	{
+		"folke/trouble.nvim",
+		cmd = { "TroubleToggle", "Trouble" },
+		opts = { use_diagnostic_signs = true },
+		keys = {
+			{ "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+			{ "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+			{ "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
+			{ "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+			{
+				"[q",
+				function()
+					if require("trouble").is_open() then
+						require("trouble").previous({ skip_groups = true, jump = true })
+					else
+						vim.cmd.cprev()
+					end
+				end,
+				desc = "Previous trouble/quickfix item",
+			},
+			{
+				"]q",
+				function()
+					if require("trouble").is_open() then
+						require("trouble").next({ skip_groups = true, jump = true })
+					else
+						vim.cmd.cnext()
+					end
+				end,
+				desc = "Next trouble/quickfix item",
+			},
 		},
 	},
 }

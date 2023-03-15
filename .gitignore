@@ -1,4 +1,4 @@
-nvim/pack
+nvim/lazy-lock.json
 kitty/node_modules
 kitty/package-lock.json
 kitty/package.json

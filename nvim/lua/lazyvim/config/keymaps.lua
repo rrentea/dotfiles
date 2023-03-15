@@ -116,30 +116,6 @@ end)
 --   map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 -- end
 
--- Debugging
-
-local dap = require("dap")
-map('n', '<S-k>', function() dap.step_out() end)
-map('n', "<S-l>", function() dap.step_into() end)
-map('n', '<S-j>', function() dap.step_over() end)
-map('n', '<S-h>', function() dap.continue() end)
-map('n', '<leader>di', function() require('dapui').eval(nil, { enter = true }) end)
-map('n', '<leader>d?', function()
-    local widgets = require('dap.ui.widgets')
-    widgets.centered_float(widgets.scopes)
-end)
-map('n', '<leader>dk', function() dap.up() end)
-map('n', '<leader>dj', function() dap.down() end)
-map('n', '<leader>dc', function() dap.run_to_cursor() end)
-
-map('n', '<leader>dl', function()
-    require('dap.ext.vscode').load_launchjs()
-end)
-
-map('n', '<leader>df', ':Telescope dap frames<CR>')
-map('n', '<leader>db', ':Telescope dap list_breakpoints<CR>')
-map('n', '<leader>du', function() require('dapui').toggle(nil) end)
-
 -- floating terminal
 map("n", "<leader>ft", function() Util.float_term(nil, { cwd = Util.get_root() }) end, { desc = "Terminal (root dir)" })
 map("n", "<leader>fT", function() Util.float_term() end, { desc = "Terminal (cwd)" })
