@@ -22,8 +22,14 @@ fish_add_path /home/rrentea/.local/bin
 fish_add_path /home/rrentea/.local/kitty.app/bin
 fish_add_path /home/rrentea/bin
 fish_add_path /home/rrentea/.spicetify
+fish_add_path /home/rrentea/.deno/bin/
 
-bind -M insert \cK accept-autosuggestion
+bind -M insert \cl accept-autosuggestion
+bind -M insert \ck up-or-search
+bind -M insert \cj down-or-search
+bind \cl accept-autosuggestion
+bind \ck up-or-search
+bind \cj down-or-search
 bind -M insert \cp tmux neww tmux-sessionizer
 
 

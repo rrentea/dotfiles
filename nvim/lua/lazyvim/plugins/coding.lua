@@ -154,21 +154,21 @@ return {
 		"numToStr/Comment.nvim",
 		event = "VeryLazy",
 		opts = {
-            pre_hook = function()
-                require("ts_context_commentstring.internal").update_commentstring({})
-            end,
+			pre_hook = function()
+				require("ts_context_commentstring.internal").update_commentstring({})
+			end,
 		},
 		config = function(_, opts)
 			require("Comment").setup(opts)
 		end,
 	},
 
-  {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-        require("lsp_lines").setup()
-    end,
-  },
+	{
+		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		config = function()
+			require("lsp_lines").setup()
+		end,
+	},
 	-- better text-objects
 	{
 		"echasnovski/mini.ai",
@@ -239,4 +239,43 @@ return {
 			end
 		end,
 	},
+	{
+		"echasnovski/mini.move",
+		version = "*",
+		event = "VeryLazy",
+		opts = {
+			-- Module mappings. Use `''` (empty string) to disable one.
+			mappings = {
+				-- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
+				left = "<S-h>",
+				right = "<S-l>",
+				down = "<S-j>",
+				up = "<S-k>",
+
+				-- Move current line in Normal mode
+				line_left = "<C-M-h>",
+				line_right = "<C-M-l>",
+				line_up = "<C-M-k>",
+				line_down = "<C-M-j>",
+			},
+
+			-- Options which control moving behavior
+			options = {
+				-- Automatically reindent selection during linewise vertical move
+				reindent_linewise = true,
+			},
+		},
+		config = function(_, opts)
+			require("mini.move").setup(opts)
+		end,
+	},
+	-- {
+	-- 	"christoomey/vim-tmux-navigator",
+	-- 	keys = {
+ --            {"<M-h>", function () vim.cmd("TmuxNavigateLeft") end, mode = "n"},
+ --            {"<M-j>", function () vim.cmd("TmuxNavigateDown") end, mode = "n"},
+ --            {"<M-k>", function () vim.cmd("TmuxNavigateUp") end, mode = "n"},
+ --            {"<M-l>", function () vim.cmd("TmuxNavigateRight") end, mode = "n"},
+ --        },
+	-- },
 }

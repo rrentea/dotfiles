@@ -76,12 +76,12 @@ return {
 				function()
 					-- require("neo-tree").close()
 					local dap = require("dap")
-					dap.configurations.python = {} -- Clearing any current configuration
-					dap.configurations.cpp = {} -- Clearing any current configuration
+					-- dap.configurations.python = {} -- Clearing any current configuration
+					-- dap.configurations.cpp = {} -- Clearing any current configuration
 					require("dap.ext.vscode").load_launchjs(
-						os.getenv("PWD") .. "/.nvim/launch.json",
-						{ cppdbg = { "c", "cpp" } }
-					)
+                        os.getenv("PWD") .. "/.nvim/launch.json",
+                        { cpp = { "c", "cpp" } }
+                    )
 					dap.continue()
 				end,
 			},
@@ -101,7 +101,7 @@ return {
             { '<leader>dk', function() require("dap").up() end },
             { '<leader>dj', function() require("dap").down() end },
             { '<leader>dc', function() require("dap").run_to_cursor() end },
-            { '<leader>dl', function() require('require("dap").ext.vscode').load_launchjs() end },
+            { '<leader>dl', function() require('dap.ext.vscode').load_launchjs() end },
             { '<leader>df', ':Telescope dap frames<CR>' },
             { '<leader>db', ':Telescope dap list_breakpoints<CR>' },
             { '<leader>du', function() require('dapui').toggle(nil) end },

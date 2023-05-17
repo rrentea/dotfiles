@@ -1,3 +1,4 @@
+
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
@@ -36,7 +37,7 @@ opt.spelllang = { "en" }
 opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
 opt.tabstop = 4 -- Number of spaces tabs count for
-opt.termguicolors = true -- True color support
+opt.termguicolors = true -- True color supportopts
 opt.timeoutlen = 1000
 opt.undofile = true
 opt.undolevels = 10000
@@ -45,6 +46,10 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 opt.swapfile = false -- No swap files
+opt.colorcolumn = "100" -- colorcolumn
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
+
+vim.g.virtcolumn_char = '▕' -- char to display the line
+vim.g.virtcolumn_priority = 10 -- priority of extmark

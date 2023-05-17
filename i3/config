@@ -36,10 +36,10 @@ exec --no-startup-id xset s noblank
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-exec --no-startup-id autorandr -c
-
 # polybar
 exec --no-startup-id ~/.config/polybar/launch_polybar.sh &
+
+exec --no-startup-id reset_env
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -62,7 +62,7 @@ bindsym Mod1+Ctrl+p exec --no-startup-id playerctl play-pause
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty -e fish
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+q kill
@@ -180,7 +180,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # resets env: resets display config, repairs wallpaper, restart polybar
-bindsym &mod+Ctrl+r exec reset_env
+bindsym $mod+Ctrl+r exec reset_env
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
@@ -201,6 +201,9 @@ gaps outer 3
 
 smart_borders on
 smart_borders no_gaps
+
+
+no_focus [title="^Peek preview$"]
 
 # floating rules
 # for_window [title="Cisco"] floating enable

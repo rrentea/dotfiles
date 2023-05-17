@@ -229,7 +229,7 @@ return {
 		},
 	},
 
-    -- Diagnostics
+	-- Diagnostics
 	{
 		"folke/trouble.nvim",
 		cmd = { "TroubleToggle", "Trouble" },
@@ -263,4 +263,5 @@ return {
 			},
 		},
 	},
+	{ "xiyaowong/virtcolumn.nvim" },
 }
