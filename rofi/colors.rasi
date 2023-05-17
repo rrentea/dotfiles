@@ -1,0 +1,19 @@
+/* COLORS */
+
+/* * { */
+/*     background:     #303446; */
+/*     background-alt: #292c3c; */
+/*     foreground:     #FFFFFFFF; */
+/*     selected:       #b88cff; */
+/*     active:         #98C379FF; */
+/*     urgent:         #E06C75FF; */
+/* } */
+
+* {
+  background:             #0c0c0c;
+  background-transparent: #0c0c0cBB; 
+  background-alt:         #282B31FF;
+  foreground:             #FFFFFFFF;
+  foreground-alt:         #010101FF;
+  selected:               #b88cffBB;	
+}
