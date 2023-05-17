@@ -1,0 +1,26 @@
+#!/home/rrentea/Work/work_env/bin/python
+import sys
+import json
+import numpy as np
+
+AAD_DIR = "/home/rrentea/Work/git/ecnet/scripts/aad/"
+CENTROIDS_PATH = AAD_DIR + "ecnet_aad_centroids.json"
+
+sys.path.insert(0, AAD_DIR)
+from aad_data import P, R
+from event_counts import EvtCounts
+
+def power_distance(evt_counts1, evt_counts2):
+    return np.power(np.sum(np.power(np.abs(evt_counts1 - evt_counts2), P)), R)
+
+with open(CENTROIDS_PATH) as centroids_path:
+    centroids = json.load(centroids_path)
+    centroids = [EvtCounts(centroid).list_representation for centroid in centroids]
+    centroids = [EvtCounts.array_unpack(centroid) for centroid in centroids]
+    centroids = [np.array(centroid) for centroid in centroids]
+    # print(centroids)
+    entry = EvtCounts(eval(sys.argv[1])).list_representation
+    entry = EvtCounts.array_unpack(entry)
+    entry = np.array(entry)
+    min_dist = min([power_distance(entry, centroid) for centroid in centroids])
+    print(min_dist)

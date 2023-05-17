@@ -1,0 +1,139 @@
+#!/home/rrentea/.pyenv/shims/python
+import json
+import sys
+from typing import Union
+
+ALL_EVENTS = [
+ ('PADDING', 0),
+ ('DNS_IP', 1),
+ ('DNS_NOT_FOUND', 2),
+ ('DNS_ALIAS', 3),
+ ('HTTP_REQUEST', 4),
+ ('HTTP_RESPONSE', 5),
+ ('ICMP_UNREACHABLE', 6),
+ ('LOGIN_ATTEMPT', 7),
+ ('TCP_SYN', 8),
+ ('SMB_SESSION_SETUP', 9),
+ ('SMB_TREE_CONNECT', 10),
+ ('SMB_FILE_CREATE', 11),
+ ('SMB_FILE_ACCESS', 12),
+ ('FILE_TYPE_IDENTIFIER', 13),
+ ('SMB_RPC_CALL_NETPATHCAN', 14),
+ ('TOR_ACTIVITY', 15),
+ ('DNS_RESP_NULL', 16),
+ ('IRC_MESSAGE', 17),
+ ('ARP_REQUEST', 18),
+ ('ARP_REPLY', 19),
+ ('PACKET_LENGTHS', 20),
+ ('PLEASE_CRASH', 21),
+ ('ICMP_ECHO_REQUEST', 22),
+ ('ROGUE_TCP_PACKET', 23),
+ ('DOMAIN_CERTIFICATE', 24),
+ ('DNS_REQUEST', 25),
+ ('DETECTION_WHITELISTED', 26),
+ ('IP_NULL_PROTOCOL', 27),
+ ('TCP_CONN_FINISHED', 28),
+ ('TLS_CONNECTION', 29),
+ ('UPNP_PORT_MAPPING', 30),
+ ('SSH_CONNECTION', 31),
+ ('JUST_TESTING', 32)]
+
+AAD_PORTS = [21, 22, 23, 25, 37, 53, 80, 110, 139, 143, 443, 445, 465, 554,
+             587, 993, 995, 1883, 3306, 3389, 5900, 8080, 8883, 49152]
+AAD_PORT_INTERVALS = [1024, 5000, 10000, 15000, 20000, 25000, 32768, 40000, 49152, 55000, 61000]
+
+AAD_TRACKED_PORTS = len(AAD_PORTS)
+AAD_TRACKED_PORT_INTERVALS = len(AAD_PORT_INTERVALS) + 1
+AAD_TRACKED_DATA = len(ALL_EVENTS) * 2 + AAD_TRACKED_PORTS * 2 + AAD_TRACKED_PORT_INTERVALS * 2
+
+def evt_name(type: int) -> str:
+    if isinstance(type, str):
+        type = int(type)
+    for evt_name, evt_type in ALL_EVENTS:
+        if evt_type == type:
+            return evt_name
+    return ''
+
+class EvtCounts:
+    def __init__(self, counts: Union[list, str]) -> None:
+        if isinstance(counts, str):
+            counts = eval(counts)
+        counts = self.array_unpack(counts)
+        nr_events = len(ALL_EVENTS)
+        evt_names = [evt[0] for evt in ALL_EVENTS]
+
+        iterator = iter(counts)
+        combined = list(zip(iterator, iterator))
+        evt_counts = combined[:nr_events]
+        ports = combined[nr_events:nr_events + AAD_TRACKED_PORTS]
+        interval_ports = combined[nr_events + AAD_TRACKED_PORTS:]
+        counts_dict = {}
+        for evt_name, (outgoing, incoming) in list(zip(evt_names, evt_counts)):
+            counts_dict[evt_name + ".outgoing"] = outgoing
+            counts_dict[evt_name + ".incoming"] = incoming
+        for port, (outgoing, incoming) in list(zip(AAD_PORTS, ports)):
+            counts_dict[f"port_{port}.outgoing"] = outgoing
+            counts_dict[f"port_{port}.incoming"] = incoming
+        for index, (outgoing, incoming) in enumerate(interval_ports):
+            counts_dict[f"port_{EvtCounts.get_port_interval(index)}.outgoing"] = outgoing
+            counts_dict[f"port_{EvtCounts.get_port_interval(index)}.incoming"] = incoming
+        counts_dict = {key: val for key, val in counts_dict.items() if val > 0}
+        self.counts = counts_dict
+
+    def __str__(self) -> str:
+        return json.dumps(self.counts, indent=4)
+    
+    def tolist(self):
+        return self._dict_to_list(self.counts)
+
+    def _dict_to_list(self, counts_dict):
+        counts = []
+        for evt_name, _ in ALL_EVENTS:
+            counts.append(counts_dict.get(evt_name + '.outgoing', 0))
+            counts.append(counts_dict.get(evt_name + '.incoming', 0))
+        for port in AAD_PORTS:
+            counts.append(counts_dict.get(f'port_{port}.outgoing', 0))
+            counts.append(counts_dict.get(f'port_{port}.incoming', 0))
+        for index in range(AAD_TRACKED_PORT_INTERVALS):
+            counts.append(counts_dict.get(f'port_{EvtCounts.get_port_interval(index)}.outgoing', 0))
+            counts.append(counts_dict.get(f'port_{EvtCounts.get_port_interval(index)}.incoming', 0))
+
+        return EvtCounts.array_pack(counts) 
+    
+    @staticmethod
+    def get_port_interval(index):
+        if index == 0:
+            return "0-1024"
+        if index == 11:
+            return "61000-65535"
+        return f"{AAD_PORT_INTERVALS[index - 1]}-{AAD_PORT_INTERVALS[index]}"
+
+    @staticmethod
+    def array_unpack(data):
+        arr = []
+        for x in data:
+            if x >= 0:
+                arr.append(x)
+            else:
+                arr += ([0] * (-x))
+        return arr
+        
+    @staticmethod
+    def array_pack(data):
+        packed_data = []
+        zero_count = 0
+        for n in data:
+            if n == 0:
+                zero_count += 1
+            else:
+                if zero_count:
+                    packed_data.append(-zero_count if zero_count > 1 else 0)
+                    zero_count = 0
+                packed_data.append(n)
+        if zero_count:
+            packed_data.append(-zero_count if zero_count > 1 else 0)
+
+if __name__ == "__main__":
+    counts = sys.argv[1]
+    counts = EvtCounts(counts)
+    print(counts)

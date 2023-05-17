@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /home/rrentea/Repos/root-startpage
+python -m http.server 10001

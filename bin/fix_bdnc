@@ -1,0 +1,6 @@
+#!/bin/python3
+
+BDNC_INI_PATH = '/work/bd/components/bdnc/latest/linux-release64/bdnc.ini'
+
+with open(BDNC_INI_PATH, 'w') as bdnc_ini:
+    bdnc_ini.write("BootstrapServer = internal.nimbus")

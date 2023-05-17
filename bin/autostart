@@ -1,0 +1,14 @@
+#!/bin/sh
+xinput set-prop "DELL0819:00 044E:121F Touchpad" "Device Enabled" 1
+xinput set-prop "DELL0819:00 044E:121F Touchpad" "libinput Tapping Enabled" 1
+xinput set-prop "DELL0819:00 044E:121F Touchpad" "libinput Natural Scrolling Enabled" 1
+# xrandr --output DP-1-1 --mode 2560x1440 --rate 144
+# xrandr --output DP-1-2 --mode 1920x1080 --rate 144
+remapcaps
+# picom
+set_wallpaper
+
+betterlockscreen -u ~/wallpapers/landscapes/evening-sky.png &
+root_startpage
+# xautolock -time 10 -locker lock &
+

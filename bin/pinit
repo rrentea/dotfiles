@@ -1,0 +1,48 @@
+#!/usr/bin/python3
+import os
+import json
+
+CONFIG_DIR = os.path.join(os.getcwd(), '.nvim')
+DEBUG_CONFIG = {
+    "configurations": [
+        {
+            "name": "Python: Launch",
+            "type": "python",
+            "request": "launch",
+            "python": os.popen("which python3").read().strip(),
+            "stopOnEntry": False,
+            "debugOptions": [],
+            "program": "${workspaceFolder}/main.py",
+            "args": []
+        }
+    ]
+}
+
+TASKS_CONFIG = """
+[project-run]
+command=python3 "$(VIM_FILEPATH)"
+cwd=$(VIM_ROOT)
+output=terminal
+"""
+
+MAINPY = """def main():
+    print('Hello, world!')
+
+if __name__ == "__main__":
+    main()
+"""
+
+if os.path.isdir(CONFIG_DIR):
+    print("Project already initialized.")
+    exit(1)
+
+os.mkdir(CONFIG_DIR)
+
+with open(os.path.join(CONFIG_DIR, 'launch.json'), 'w') as debug_config:
+    json.dump(DEBUG_CONFIG, debug_config, indent=4)
+
+with open(os.path.join(CONFIG_DIR, '.tasks'), 'w') as tasks_config:
+    tasks_config.write(TASKS_CONFIG)
+
+with open(os.path.join(os.getcwd(), 'main.py'), 'w') as main_file:
+    main_file.write(MAINPY)

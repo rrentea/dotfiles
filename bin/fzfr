@@ -1,0 +1,4 @@
+#!/bin/sh
+cd "/" || exit
+
+cd "$(fd --type directory | fzf)" || exit

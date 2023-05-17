@@ -1,0 +1,6 @@
+#!/bin/sh
+
+remapcaps
+autorandr -c
+~/.config/polybar/launch_polybar.sh
+set_wallpaper

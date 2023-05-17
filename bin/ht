@@ -1,0 +1,2 @@
+#!/bin/sh
+python3 /work/bd/git/ecnet/plugins/haut/scripts/hautTester.py "$@"
