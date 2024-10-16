@@ -1,0 +1,67 @@
+[[profile]]
+name = "mobile"
+
+[[profile.output]]
+enable = true
+search = ["m=0x1548", "s=", "v=Sharp Corporation"]
+mode = "1920x1200@59.95Hz"
+position = "0,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = true
+
+[[profile]]
+name = "home"
+
+[[profile.output]]
+enable = false
+search = ["m=0x1548", "s=", "v=Sharp Corporation"]
+
+[[profile.output]]
+enable = true
+search = ["m=LC32G5xT", "s=H4ZT100211", "v=Samsung Electric Company"]
+mode = "2560x1440@72Hz"
+position = "0,-1440"
+scale = 1.0
+transform = "normal"
+adaptive_sync = true
+
+[[profile.output]]
+enable = true
+search = ["m=Y25f", "s=U4AB5009", "v=Lenovo Group Limited"]
+mode = "1920x1080@143.999Hz"
+position = "-1080,-1720"
+scale = 1.0
+transform = "90"
+adaptive_sync = true
+
+[[profile]]
+name = "work"
+
+[[profile.output]]
+enable = true
+search = ["m=0x1548", "s=", "v=Sharp Corporation"]
+mode = "1920x1200@59.95Hz"
+position = "0,0"
+scale = 1.0
+transform = "normal"
+adaptive_sync = true
+
+[[profile.output]]
+enable = true
+search = ["m=DELL U2415", "s=7MT0196E0NDU", "v=Dell Inc."]
+mode = "1920x1200@59.95Hz"
+position = "-1200,-920"
+scale = 1.0
+transform = "270"
+adaptive_sync = false
+
+[[profile.output]]
+enable = true
+search = ["m=DELL U2415", "s=7MT018B70P9S", "v=Dell Inc."]
+mode = "1920x1200@59.95Hz"
+position = "1920,-1000"
+scale = 1.0
+transform = "normal"
+adaptive_sync = false
+
