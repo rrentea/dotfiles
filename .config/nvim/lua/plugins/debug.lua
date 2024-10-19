@@ -8,6 +8,7 @@
 
 return {
   'mfussenegger/nvim-dap',
+  lazy=true,
   dependencies = {
     'rcarriga/nvim-dap-ui',
 -- Installs the debug adapters for you
@@ -15,6 +16,7 @@ return {
     'theHamsta/nvim-dap-virtual-text',
     'jay-babu/mason-nvim-dap.nvim',
     'nvim-neotest/nvim-nio',
+    'anuvyklack/hydra.nvim',
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
@@ -91,7 +93,31 @@ return {
         stopAtEntry = false,
       },
     }
+    -- local Hydra = require("hydra")
 
+    -- Hydra({
+    --   name = 'Debugging',
+    --   config = {
+    --     color = 'pink',
+    --     hint = 'statusline',
+    --   },
+    --   mode = {'n','x','o'},
+    --   body = '<leader>d',
+    --   heads = {
+    --     { 's', function() require('dap').continue() end },
+    --     { 'c', function() require('dap').run_to_cursor() end },
+    --     { 'j', function() require('dap').step_over() end },
+    --     { 'l', function() require('dap').step_into() end },
+    --     { 'k', function() require('dap').step_out() end },
+    --     { 'h', function() require('dap').toggle_breakpoint() end },
+    --     { 'B', function() require('dap').set_breakpoint() end },
+    --     { 'lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end },
+    --     { 'r', function() require('dap').repl.open() end },
+    --     { 'rl', function() require('dap').run_last() end },
+    --     { 'u', function() require('dapui').toggle() end },
+    --     { 't', function() require('dap').terminate() end },
+    --   }
+    -- })
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
     vim.keymap.set('n', '<F9>', function() require('dap').run_to_cursor() end)
