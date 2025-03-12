@@ -1,16 +1,14 @@
 return {
   {
     'catppuccin/nvim',
-    -- 'rebelot/kanagawa.nvim',
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- Load the colorscheme here
-      vim.cmd.colorscheme 'catppuccin'
-      -- vim.cmd.colorscheme 'kanagawa'
+      -- vim.cmd.colorscheme 'catppuccin'
 
       -- You can configure highlights by doing something like
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
     end,
   },
   {
@@ -54,4 +52,24 @@ return {
     enabled = true,
     priority = 1000,
   },
+  {
+    "rmehri01/onenord.nvim",
+    config = function()
+      -- Load the colorscheme here
+      vim.cmd.colorscheme 'onenord'
+    end,
+  },
+  {
+    "sho-87/kanagawa-paper.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "neanias/everforest-nvim",
+    version = false,
+    lazy = false,
+    priority = 1000, -- make sure to load this before all the other start plugins
+    -- Optional; default configuration will be used if setup isn't called.
+  }
 }

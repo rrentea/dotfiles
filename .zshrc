@@ -76,6 +76,9 @@ path+=/usr/local/go/bin/
 path+=$HOME/.tmux/plugins/t-smart-tmux-session-manager/bin
 path+=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin
 
+# Cargo packages path
+source $HOME/.cargo/env
+
 # ENV
 export EDITOR=nvim
 export BDNC_PATH=/work/bd/ghostr/components/bdnc/latest/linux-release64/libbdnc.so
@@ -126,9 +129,9 @@ alias yy="y"
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 # bun completions
 [ -s "/home/rrentea/.bun/_bun" ] && source "/home/rrentea/.bun/_bun"
@@ -136,3 +139,5 @@ eval "$(pyenv init -)"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+. "$HOME/.cargo/env"

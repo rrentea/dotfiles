@@ -8,7 +8,6 @@
 
 return {
   'mfussenegger/nvim-dap',
-  lazy=true,
   dependencies = {
     'rcarriga/nvim-dap-ui',
 -- Installs the debug adapters for you
@@ -48,6 +47,22 @@ return {
       type = 'executable',
       command = '/home/rrentea/.local/share/nvim/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
     }
+    dap.adapters.python = {
+      type = 'executable';
+      command = "/home/rrentea/.pyenv/shims/python3",
+      args = { '-m', 'debugpy.adapter' };
+    }
+    dap.configurations.python = {
+      {
+        type = 'python';
+        request = 'launch';
+        name = "Launch file";
+        program = "${file}";
+        -- pythonPath = function()
+        --   return '/usr/bin/python'
+        -- end;
+      },
+    }
     dap.configurations.cpp = {
       {
         name = "Ecnet tester",
@@ -68,69 +83,56 @@ return {
         cwd = '/work/bd/git/ecnet-tester/bin/linux-debug64/',
         stopAtEntry = false,
       },
+      -- {
+      --   name = "Run aad_iot_test",
+      --   type = "cppdbg",
+      --   request = "launch",
+      --   program = "/work/bd/ghostr/components/guster/latest/linux-64-release/guster",
+      --   args = {
+      --     "-C", "var_path=/work/bd/ghostr/var/dbg_var/",
+      --     "-c", "/work/bd/ghostr/components/guster/config/linux/guster.yaml",
+      --     "-C", "ecnet_path=/work/bd/git/ecnet/bin/linux-debug64",
+      --     "-C", "craw_path=/work/bd/ghostr/components/craw/latest/linux-release64",
+      --     "-C", "sav_path=/work/bd/ghostr/components/sav/latest/packages/linux_amd64/debug/DEVELOPMENT_NO_EMALWARE",
+      --     "-C", "bdnc_path=/work/bd/ghostr/components/bdnc/latest/linux-release64/",
+      --     "--file", "/work/bd/core_test/remote/infected/AAD/aad_iot_test.pcap"
+      --   },
+      --   cwd = '${workspaceFolder}',
+      --   stopAtEntry = false,
+      -- },
       {
         name = "Run aad_iot_test",
         type = "cppdbg",
-        request = "launch",
+        request = "attach",
         program = "/work/bd/ghostr/components/guster/latest/linux-64-release/guster",
-        args = {
-          "-C", "var_path=/work/bd/ghostr/var/dbg_var/",
-          "-c", "/work/bd/ghostr/components/guster/config/linux/guster.yaml",
-          "-C", "ecnet_path=/work/bd/git/ecnet/bin/linux-debug64",
-          "-C", "craw_path=/work/bd/ghostr/components/craw/latest/linux-release64",
-          "-C", "sav_path=/work/bd/ghostr/components/sav/latest/packages/linux_amd64/debug/DEVELOPMENT_NO_EMALWARE",
-          "-C", "bdnc_path=/work/bd/ghostr/components/bdnc/latest/linux-release64/",
-          "--file", "/work/bd/core_test/remote/infected/AAD/aad_iot_test.pcap"
-        },
-        -- environment = {
-        --   {name = "BDNC_PATH", value = "/work/bd/ghostr/components/bdnc/latest/linux-release64/libbdnc.so"},
-        --   {name = "HAUT_CVD_PATH", value = "/work/bd/git/ecnet_haut_sigs/bin/haut.cvd"},
-        --   {name = "SID_DATA_PATH", value = "/work/bd/git/ecnet/bin/sid.data"},
-        --   {name = "PORTALIB_PATH", value = "/work/bd/git/portalib/bin/linux-debug64/portalib.so"},
-        --   {name = "ECNET_PATH", value = "/work/bd/git/ecnet/bin/linux-debug64/libEcNet.so"},
-        -- },
+        processId = require('dap.utils').pick_process,
         cwd = '${workspaceFolder}',
         stopAtEntry = false,
       },
     }
-    -- local Hydra = require("hydra")
 
-    -- Hydra({
-    --   name = 'Debugging',
-    --   config = {
-    --     color = 'pink',
-    --     hint = 'statusline',
-    --   },
-    --   mode = {'n','x','o'},
-    --   body = '<leader>d',
-    --   heads = {
-    --     { 's', function() require('dap').continue() end },
-    --     { 'c', function() require('dap').run_to_cursor() end },
-    --     { 'j', function() require('dap').step_over() end },
-    --     { 'l', function() require('dap').step_into() end },
-    --     { 'k', function() require('dap').step_out() end },
-    --     { 'h', function() require('dap').toggle_breakpoint() end },
-    --     { 'B', function() require('dap').set_breakpoint() end },
-    --     { 'lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end },
-    --     { 'r', function() require('dap').repl.open() end },
-    --     { 'rl', function() require('dap').run_last() end },
-    --     { 'u', function() require('dapui').toggle() end },
-    --     { 't', function() require('dap').terminate() end },
-    --   }
-    -- })
+    local run_command_if_active = function(command, fallback_key)
+      if require('dap').session() == nil then
+        local key = vim.api.nvim_replace_termcodes(fallback_key, true, false, true)
+        vim.api.nvim_feedkeys(key, 'n', false)
+      else
+        command()
+      end
+    end
+
     -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
-    vim.keymap.set('n', '<F9>', function() require('dap').run_to_cursor() end)
-    vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
-    vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
-    vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
-    vim.keymap.set('n', '<Leader>dh', function() require('dap').toggle_breakpoint() end)
-    vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
-    vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
-    vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
-    vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
-    vim.keymap.set('n', '<Leader>du', function() require('dapui').toggle() end)
-    vim.keymap.set('n', '<Leader>dt', function() require('dap').terminate() end)
+    vim.keymap.set('n', '<leader>dc', function() dap.continue() end, {desc = "Debug Continue"})
+    vim.keymap.set('n', '<leader>dC', function() dap.run_to_cursor() end, {desc = "Debug run to Cursor"})
+    vim.keymap.set('n', 'J', function () run_command_if_active(dap.step_over, 'J') end, {desc = "Debug step over"})
+    vim.keymap.set('n', 'L', function () run_command_if_active(dap.step_into, 'K') end, {desc = "Debug step into"})
+    vim.keymap.set('n', 'H', function () run_command_if_active(dap.step_out, 'H') end, {desc = "Debug step oup"})
+    vim.keymap.set('n', '<leader>dh', function() dap.toggle_breakpoint() end, {desc = "Debug toggle breakpoint"})
+    vim.keymap.set('n', '<leader>dB', function() dap.set_breakpoint() end, {desc = "Debug set breakpoint"})
+    vim.keymap.set('n', '<leader>lp', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+    vim.keymap.set('n', '<leader>dr', function() dap.repl.open() end, {desc = "Debug open Repl"})
+    vim.keymap.set('n', '<leader>dl', function() dap.run_last() end, {desc = "Debug run Last"})
+    vim.keymap.set('n', '<leader>du', function() dapui.toggle() end, {desc = "DapUI Toggle"})
+    vim.keymap.set('n', '<leader>dt', function() dap.terminate() end, {desc = "Debug Terminate"})
     -- vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
     --   require('dapui').eval(nil, { enter = true })
     -- end)

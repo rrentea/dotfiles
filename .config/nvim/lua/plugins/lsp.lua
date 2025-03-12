@@ -98,7 +98,18 @@ return {
       local servers = {
         clangd = {},
         -- gopls = {},
-        pyright = {},
+        pyright = {
+          settings = {
+            pyright = {
+              analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                useLibraryCodeForTypes = true,
+                stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs"
+              }
+            }
+          }
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -172,4 +183,7 @@ return {
       }
     end,
   },
+  {
+      "microsoft/python-type-stubs",
+  }
 }

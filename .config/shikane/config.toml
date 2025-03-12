@@ -19,20 +19,20 @@ search = ["m=0x1548", "s=", "v=Sharp Corporation"]
 
 [[profile.output]]
 enable = true
-search = ["m=LC32G5xT", "s=H4ZT100211", "v=Samsung Electric Company"]
-mode = "2560x1440@72Hz"
-position = "0,-1440"
-scale = 1.0
-transform = "normal"
-adaptive_sync = true
-
-[[profile.output]]
-enable = true
 search = ["m=Y25f", "s=U4AB5009", "v=Lenovo Group Limited"]
 mode = "1920x1080@143.999Hz"
 position = "-1080,-1720"
 scale = 1.0
 transform = "90"
+adaptive_sync = true
+
+[[profile.output]]
+enable = true
+search = ["m=LC32G5xT", "s=H4ZT100211", "v=Samsung Electric Company"]
+mode = "2560x1440@144Hz"
+position = "0,-1440"
+scale = 1.0
+transform = "normal"
 adaptive_sync = true
 
 [[profile]]

@@ -3,6 +3,7 @@ return {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim" },
+    enabled = false,
     config = function ()
       local harpoon = require("harpoon")
 
@@ -23,4 +24,24 @@ return {
       vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
     end
   },
+  {
+    "aidancz/buvvers.nvim",
+    config = function ()
+      require("buvvers").setup({
+        name_prefix = function(buffer_handle)
+          local icon, hl = MiniIcons.get("file", vim.api.nvim_buf_get_name(buffer_handle))
+          return {
+            icon .. " ",
+            hl,
+          }
+        end,
+      })
+      -- require("buvvers").open()
+      vim.keymap.set("n", "<leader>b", require("buvvers").toggle)
+
+      vim.keymap.set('n', '<C-j>', ":bnext<CR>", { desc = 'Move to next buffer' })
+      vim.keymap.set('n', '<C-k>', ":bprev<CR>", { desc = 'Move to prev buffer' })
+
+    end
+  }
 }
